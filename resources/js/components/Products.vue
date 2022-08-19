@@ -1,3 +1,4 @@
 <template>
-    Products
+    products page
+    <RouterLink to="/product">to detail page</RouterLink>
 </template>

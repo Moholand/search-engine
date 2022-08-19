@@ -8,8 +8,16 @@
         @vite('resources/css/app.css')
     </head>
     <body>
-        <div id="app"></div>
+        <div id="app">
+            <App />
+        </div>
 
         @vite('resources/js/app.js')
     </body>
 </html>
+<script>
+    import App from "../js/App";
+    export default {
+        components: {App}
+    }
+</script>

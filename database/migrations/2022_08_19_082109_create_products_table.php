@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->integer('price');
+            $table->integer('price')->comment('toman');;
             $table->tinyInteger('discount')->default(0)->comment('percent');
             $table->foreignId('category_id')->constrained();
             $table->tinyInteger('point');
+            $table->string('image');
             $table->timestamps();
         });
     }

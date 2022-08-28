@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Products from './components/Products.vue';
+import Products from './components/products/Products.vue';
 import ProductDetail from './components/ProductDetail.vue';
 
 const routes = [
@@ -8,7 +8,8 @@ const routes = [
         component: Products
     },
     {
-        path: '/product',
+        path: '/products/:id',
+        name: 'ProductDetail',
         component: ProductDetail
     }
 ]

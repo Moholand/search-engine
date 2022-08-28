@@ -17,12 +17,10 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'title' => 'گوشی ' . str_replace(".", "", $this->faker->realText(20)),
             'description' => str_replace(".", "", $this->faker->realText(300)),
-            'price' => 1200000,
-            'discount' => 0,
-            'category_id' => 1,
-            'point' => 50
+            'price' => rand(10, 100) * 1000000,
+            'discount' => rand(0, 100),
+            'point' => rand(0, 100)
         ];
     }
 }

@@ -26,8 +26,9 @@
             }
         },
         created() {
-            axios.get('api/products')
+            axios.get('api/products?query=yes')
                 .then((response) => {
+                    console.log(response);
                     this.products = response.data.data;
                 })
                 .catch((error) => {

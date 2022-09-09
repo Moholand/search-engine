@@ -16,7 +16,9 @@ class ElasticSearchServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(Client::class, function () {
-            return ClientBuilder::create()->build();
+            return ClientBuilder::create()
+                ->setHosts([env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')])
+                ->build();
         });
     }
 

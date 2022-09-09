@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ProductController extends Controller
 {
@@ -17,18 +18,13 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $variables = [];
-
         if ($query = $request->query('query')) {
-            $variables['query'] = $query;
-
             $params = [
-                'index' => 'ecommerce',
-                'type' => 'product',
+                'index' => 'products',
                 'body' => [
                     'query' => [
                         'match' => [
-                            'name' => $query
+                            'title' => $query
                         ]
                     ]
                 ]
@@ -37,11 +33,13 @@ class ProductController extends Controller
             $result = $this->client->search($params);
 
             if (isset($result['hits']['hits'])) {
-                $variables['hits'] = $result['hits']['hits'];
+                $response = Arr::pluck($result['hits']['hits'], '_source');
             }
+        } else {
+            $response = Product::paginate(20);
         }
 
-        return response()->json(Product::paginate(20),200);
+        return response()->json($response,200);
     }
 
     public function search(Request $request)

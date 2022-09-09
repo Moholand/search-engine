@@ -7,7 +7,15 @@
                 </a>
                 <div class="search-form ml-auto px-2">
                     <div class="input-group rounded">
-                        <input type="search" class="form-control rounded search-input" placeholder="جستجو" aria-label="Search" aria-describedby="search-addon" />
+                        <input
+                            type="search"
+                            class="form-control rounded search-input"
+                            placeholder="جستجو"
+                            aria-label="Search"
+                            aria-describedby="search-addon"
+                            v-model="search"
+                            v-on:keydown="searchStart"
+                        />
                         <span class="input-group-text border-0" id="search-addon">
                         <i class="fas fa-search"></i>
                     </span>
@@ -17,6 +25,29 @@
         </div>
     </div>
 </template>
+
+<script>
+    export default {
+        data() {
+            return {
+                search: null,
+                products: null,
+            }
+        },
+        methods: {
+            async searchStart(event) {
+                if(event.keyCode === 13 && this.search) {
+                    try {
+                        this.products = (await axios.get(`/api/products?query=${this.search}`)).data;
+                        this.$emit('onSearch', this.products)
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            }
+        }
+    }
+</script>
 
 <style>
     .header {

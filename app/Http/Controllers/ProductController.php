@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 
 class ProductController extends Controller
@@ -25,23 +26,33 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $response = [];
-
         if ($query = $request->query('query')) {
             $page = $request->query('page', 1);
             $from = (($page - 1) * self::RESULT_PER_PAGE);
 
-            $response['page'] = $page;
-            $response['from'] = $from;
+            $queryArray = [
+              'bool' => [
+                  'must' => []
+              ]
+            ];
+
+            $tokens = explode(' ', $query);
+
+            foreach ($tokens as $token) {
+                $queryArray['bool']['must'][] = [
+                    'match' => [
+                        'title' => [
+                            'query' => $token,
+                            'fuzziness' => 'AUTO'
+                        ]
+                    ]
+                ];
+            }
 
             $params = [
                 'index' => 'products',
                 'body' => [
-                    'query' => [
-                        'match' => [
-                            'title' => $query
-                        ]
-                    ],
+                    'query' => $queryArray,
                     'size' => self::RESULT_PER_PAGE,
                     'from' => $from
                 ]
@@ -49,17 +60,33 @@ class ProductController extends Controller
 
             $result = $this->client->search($params);
             $total = $result['hits']['total'];
-            $response['total'] = $total;
-
-            $to = ($page * self::RESULT_PER_PAGE);
-            $to = min($to, $total);
-            $response['to'] = $to;
 
             if (isset($result['hits']['hits'])) {
-                $response['hits'] = Arr::pluck($result['hits']['hits'], '_source');
+                $result_data = Arr::pluck($result['hits']['hits'], '_source');
             }
 
-            return response()->json($response,200);
+            $pagination = new LengthAwarePaginator(
+                $result_data,
+                $total['value'],
+                self::RESULT_PER_PAGE,
+                $page,
+                ['path' => url('api/products/search?query=' . $query)]);
+
+            return response()->json($pagination,200);
         }
     }
+
+//    protected function getSearchFilterAggregations ()
+//    {
+//        $params = [
+//            'index' => 'products',
+//            'body' => [
+//                'query' => [
+//                    'match_all' => new \stdClass(),
+//                ],
+//                'size' => 0,
+//                'aggs' =>
+//            ]
+//        ];
+//    }
 }

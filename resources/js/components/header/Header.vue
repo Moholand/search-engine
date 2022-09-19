@@ -38,7 +38,7 @@
             async searchStart(event) {
                 if(event.keyCode === 13 && this.search) {
                     try {
-                        this.products = (await axios.get(`/api/products/search?query=${this.search}`)).data.hits;
+                        this.products = (await axios.get(`/api/products/search?query=${this.search}`)).data;
                         this.$emit('onSearch', this.products)
                     } catch (error) {
                         console.log(error);

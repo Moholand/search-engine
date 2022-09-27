@@ -16,7 +16,7 @@
                 </div>
                 <div class="price d-flex flex-row-reverse">
                     <span class="unit">تومان</span>
-                    <span class="ms-1">{{ product.price }}</span>
+                    <span class="ms-1">{{ new Intl.NumberFormat().format(product.price) }}</span>
                 </div>
             </div>
         </router-link>

@@ -26,24 +26,51 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        if ($query = $request->query('query')) {
+        $query = $request->query('query');
+        $category = $request->query('category');
+        $priceFrom = $request->query('priceFrom');
+        $priceTo = $request->query('priceTo');
+
+        if ($query || $category || $priceFrom || $priceTo) {
             $page = $request->query('page', 1);
             $from = (($page - 1) * self::RESULT_PER_PAGE);
 
             $queryArray = [
               'bool' => [
-                  'must' => []
+                  'must' => [],
+                  'filter' => []
               ]
             ];
 
-            $tokens = explode(' ', $query);
+            if ($query) {
+                $tokens = explode(' ', $query);
 
-            foreach ($tokens as $token) {
-                $queryArray['bool']['must'][] = [
-                    'match' => [
-                        'title' => [
-                            'query' => $token,
-                            'fuzziness' => 'AUTO'
+                foreach ($tokens as $token) {
+                    $queryArray['bool']['must'][] = [
+                        'match' => [
+                            'title' => [
+                                'query' => $token,
+                                'fuzziness' => 'AUTO'
+                            ]
+                        ]
+                    ];
+                }
+            }
+
+            if ($category) {
+                $queryArray['bool']['filter'][] = [
+                    'term' => [
+                        'category_id' => $category
+                    ]
+                ];
+            }
+
+            if ($priceFrom || $priceTo) {
+                $queryArray['bool']['filter'][] = [
+                    'range' => [
+                        'price' => [
+                            'gte' => $priceFrom ?? 0,
+                            'lte' => $priceTo ?? Product::max('price')
                         ]
                     ]
                 ];
@@ -65,28 +92,19 @@ class ProductController extends Controller
                 $result_data = Arr::pluck($result['hits']['hits'], '_source');
             }
 
+            $url = 'api/products/search?query=';
+            $urlWithQu = isset($query) ? $url . $query : $url;
+            $urlWithCat = isset($category) ? $urlWithQu . '&category=' . $category : $urlWithQu;
+            $urlWithPrice = isset($priceFrom) || isset($priceTo) ? $urlWithCat . '&priceFrom=' . $priceFrom . '&priceTo' . $priceTo : $urlWithCat;
+
             $pagination = new LengthAwarePaginator(
                 $result_data,
                 $total['value'],
                 self::RESULT_PER_PAGE,
                 $page,
-                ['path' => url('api/products/search?query=' . $query)]);
+                ['path' => url($urlWithPrice)]);
 
             return response()->json($pagination,200);
         }
     }
-
-//    protected function getSearchFilterAggregations ()
-//    {
-//        $params = [
-//            'index' => 'products',
-//            'body' => [
-//                'query' => [
-//                    'match_all' => new \stdClass(),
-//                ],
-//                'size' => 0,
-//                'aggs' =>
-//            ]
-//        ];
-//    }
 }

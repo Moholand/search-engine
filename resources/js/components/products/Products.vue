@@ -4,15 +4,17 @@
     />
     <div class="products">
         <div class="products-wrapper d-flex">
-            <div class="filtre-wrapper">
-                <div>فیلترها</div>
-            </div>
-            <div class="product-list-wrapper d-flex flex-wrap" v-if="products.data.length">
-                <ProductItem
-                    v-for="(product, index) in products.data"
-                    :key="`product-${index}`"
-                    :product="product"
-                />
+            <Filter
+                @filterOn="filterOn"
+            />
+            <div class="product-list-wrapper" v-if="products.data.length">
+                <div class="d-flex flex-wrap">
+                    <ProductItem
+                        v-for="(product, index) in products.data"
+                        :key="`product-${index}`"
+                        :product="product"
+                    />
+                </div>
                 <Pagination :links="products.links" @getForPage="getForPage"/>
             </div>
             <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
@@ -26,9 +28,10 @@
     import Header from '../header/Header.vue'
     import ProductItem from './ProductItem.vue';
     import Pagination from '../Pagination.vue';
+    import Filter from "../filter/Filter.vue";
 
     export default {
-        components: {ProductItem, Header, Pagination},
+        components: {Filter, ProductItem, Header, Pagination},
         data() {
             return {
                 products: null,
@@ -45,6 +48,9 @@
         },
         methods: {
             onSearch(data) {
+                this.products = data;
+            },
+            filterOn(data) {
                 this.products = data;
             },
             async getForPage(link = {}) {
@@ -75,14 +81,6 @@
 
     .products-wrapper {
         margin: 0 81px;
-    }
-
-    .filtre-wrapper {
-        width: 20%;
-        border: 1px solid #d5d8df;
-        border-radius: 10px;
-        padding: 16px 20px;
-        margin-left: 20px;
     }
 
     .product-list-wrapper {

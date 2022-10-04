@@ -20,6 +20,18 @@
                         <i class="fas fa-search"></i>
                     </span>
                     </div>
+                    <div class="recommendations-wrapper px-2" v-if="recommendations">
+                        <ul class="list-group mb-0 pe-0">
+                            <li
+                                class="list-group-item"
+                                v-for="(recommendation, index) in recommendations"
+                                :key="`recommendation-${index}`"
+                                @click="recommendationSelected($event)"
+                            >
+                                {{ recommendation.title }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,6 +44,7 @@
             return {
                 search: null,
                 products: null,
+                recommendations: null
             }
         },
         methods: {
@@ -43,6 +56,23 @@
                     } catch (error) {
                         console.log(error);
                     }
+                } else if (this.search && this.search.length >= 2) {
+                    try {
+                        this.recommendations = (await axios.get(`/api/products/recommendations?query=${this.search}`)).data;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            },
+            async recommendationSelected(event) {
+                this.search = event.target.innerHTML;
+                this.recommendations = null;
+
+                try {
+                    this.products = (await axios.get(`/api/products/search?query=${this.search}`)).data;
+                    this.$emit('onSearch', this.products)
+                } catch (error) {
+                    console.log(error);
                 }
             }
         }
@@ -66,6 +96,7 @@
     }
 
     .search-form {
+        position: relative;
         width: 35%;
     }
 
@@ -84,5 +115,26 @@
 
     #search-addon i {
         color: #a1a3a8;
+    }
+
+    .recommendations-wrapper {
+        position: absolute;
+        left: 0;
+        right: 0;
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 0 0 5px 5px;
+        box-shadow: 0 0 5px rgba(0,0,0, 0.25);
+        margin: 0 13px;
+        z-index: 20;
+    }
+
+    .recommendations-wrapper li {
+        cursor: pointer;
+    }
+
+    .recommendations-wrapper li:hover {
+        cursor: pointer;
+        background-color: #f1f2f6;
     }
 </style>

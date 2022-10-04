@@ -107,4 +107,48 @@ class ProductController extends Controller
             return response()->json($pagination,200);
         }
     }
+
+    public function recommendations(Request $request)
+    {
+        $query = $request->query('query');
+
+        if ($query) {
+
+            $queryArray = [
+                'bool' => [
+                    'must' => [],
+                ]
+            ];
+
+            $tokens = explode(' ', $query);
+
+            foreach ($tokens as $token) {
+                $queryArray['bool']['must'][] = [
+                    'match' => [
+                        'title' => [
+                            'query' => $token,
+                            'fuzziness' => 'AUTO'
+                        ]
+                    ]
+                ];
+            }
+
+            $params = [
+                'index' => 'products',
+                'body' => [
+                    'query' => $queryArray,
+                    'size' => 5,
+                ]
+            ];
+
+            $result = $this->client->search($params);
+            $total = $result['hits']['total'];
+
+            if (isset($result['hits']['hits'])) {
+                $result_data = Arr::pluck($result['hits']['hits'], '_source');
+            }
+
+            return response()->json($result_data,200);
+        }
+    }
 }

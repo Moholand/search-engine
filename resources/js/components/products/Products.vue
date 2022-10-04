@@ -66,7 +66,7 @@
                     throw error;
                 }
                 // this.loading = false;
-            },
+            }
         }
     }
 </script>

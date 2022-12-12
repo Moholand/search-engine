@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Search\SearchRequest;
 use App\Models\Product;
+use App\Services\Search\SearchService;
 use Elastic\Elasticsearch\Client;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -12,11 +14,13 @@ class ProductController extends Controller
 {
     const RESULT_PER_PAGE = 20;
 
-    private $client;
+    private Client $client;
+    private SearchService $searchService;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, SearchService $searchService)
     {
         $this->client = $client;
+        $this->searchService = $searchService;
     }
 
     public function index()
@@ -24,14 +28,11 @@ class ProductController extends Controller
         return response()->json(Product::paginate(self::RESULT_PER_PAGE),200);
     }
 
-    public function search(Request $request)
+    public function search(SearchRequest $request)
     {
-        $query = $request->query('query');
-        $category = $request->query('category');
-        $priceFrom = $request->query('priceFrom');
-        $priceTo = $request->query('priceTo');
-
-        if ($query || $category || $priceFrom || $priceTo) {
+        $this->searchService->search($request->validated(), $request->query('page', 1), self::RESULT_PER_PAGE);
+        // Todo: fix this!
+        if ($title || $category || $priceFrom || $priceTo) {
             $page = $request->query('page', 1);
             $from = (($page - 1) * self::RESULT_PER_PAGE);
 
@@ -42,8 +43,8 @@ class ProductController extends Controller
               ]
             ];
 
-            if ($query) {
-                $tokens = explode(' ', $query);
+            if ($title) {
+                $tokens = explode(' ', $title);
 
                 foreach ($tokens as $token) {
                     $queryArray['bool']['must'][] = [

@@ -58,7 +58,7 @@
                     }
                 } else if (this.search && this.search.length >= 2) {
                     try {
-                        this.recommendations = (await axios.get(`/api/products/recommendations?query=${this.search}`)).data;
+                        this.recommendations = (await axios.get(`/api/products/recommendations?title=${this.search}`)).data;
                     } catch (error) {
                         console.log(error);
                     }
@@ -69,7 +69,7 @@
                 this.recommendations = null;
 
                 try {
-                    this.products = (await axios.get(`/api/products/search?query=${this.search}`)).data;
+                    this.products = (await axios.get(`/api/products/search?title=${this.search}`)).data;
                     this.$emit('onSearch', this.products)
                 } catch (error) {
                     console.log(error);

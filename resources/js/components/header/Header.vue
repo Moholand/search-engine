@@ -49,19 +49,22 @@
         },
         methods: {
             async searchStart(event) {
-                if(event.keyCode === 13 && this.search) {
+                if(event.keyCode === 13 && this.search) { // Client pressed enter key
                     try {
+                        this.recommendations = null;
                         this.products = (await axios.get(`/api/products/search?title=${this.search}`)).data;
                         this.$emit('onSearch', this.products)
                     } catch (error) {
                         console.log(error);
                     }
-                } else if (this.search && this.search.length >= 2) {
+                } else if (this.search && this.search.length >= 3) {
                     try {
                         this.recommendations = (await axios.get(`/api/products/recommendations?title=${this.search}`)).data;
                     } catch (error) {
                         console.log(error);
                     }
+                } else {
+                    this.recommendations = null;
                 }
             },
             async recommendationSelected(event) {

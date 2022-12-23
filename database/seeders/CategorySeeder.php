@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
                 Product::factory()->create([
                     'title' => $category->name . ' ' . str_replace(".", "", Faker::word()),
                     'category_id' => $category->id,
-                    'image' => '/images/products/' . $category->id . '.jpg'
+                    'image' => '/images/products/' . $category->id . rand(1,3) . '.jpg'
                 ]);
             }
         }

@@ -1,11 +1,11 @@
-@font-face {
-    font-family: "Vazir";
-    src: url("public/fonts/Vazir-FD-WOL.eot"); /* IE9 Compact Modes */
-    src: url("public/fonts/Vazir-FD-WOL.eot?#iefix") format("embedded-opentype"),
-    url("public/fonts/Vazir-FD-WOL.woff2") format("woff2"),
-    url("public/fonts/Vazir-FD-WOL.woff") format("woff"),
-    url("public/fonts/Vazir-FD-WOL.ttf") format("truetype"); /* Safari - Android - IOS */
-}
+/*@font-face {*/
+/*    font-family: "Vazir";*/
+/*    src: url("public/fonts/Vazir-FD-WOL.eot"); !* IE9 Compact Modes *!*/
+/*    src: url("public/fonts/Vazir-FD-WOL.eot?#iefix") format("embedded-opentype"),*/
+/*    url("public/fonts/Vazir-FD-WOL.woff2") format("woff2"),*/
+/*    url("public/fonts/Vazir-FD-WOL.woff") format("woff"),*/
+/*    url("public/fonts/Vazir-FD-WOL.ttf") format("truetype"); !* Safari - Android - IOS *!*/
+/*}*/
 
 /* Scrollbar styles */
 ::-webkit-scrollbar {
@@ -24,5 +24,5 @@
 body {
     direction: rtl;
     text-align: right !important;
-    font-family: "Vazir" !important;
+    /*font-family: "Vazir" !important;*/
 }

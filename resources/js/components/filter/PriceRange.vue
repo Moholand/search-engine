@@ -3,13 +3,13 @@
         <div class="track-monitor">
             <div class="price-from">
                 <span>از:</span>
-                <span>{{ minValue}}</span>
+                <span>{{ new Intl.NumberFormat().format(minValue) }}</span>
                 <span>تومان</span>
             </div>
             <hr>
             <div class="price-to">
                 <span>تا:</span>
-                <span>{{ maxValue}}</span>
+                <span>{{ new Intl.NumberFormat().format(maxValue) }}</span>
                 <span>تومان</span>
             </div>
             <hr>
@@ -29,10 +29,10 @@
         name: "PriceRange",
         data() {
             return {
-                min: 10,
-                max: 210,
-                minValue: 40,
-                maxValue: 150,
+                min: 0,
+                max: 100000000,
+                minValue: 0,
+                maxValue: 100000000,
                 step: 5,
                 totalSteps: 0,
                 percentPerStep: 1,
@@ -86,6 +86,7 @@
             mouseup(ev, track){
                 if(!this.isDragging) return;
                 this.isDragging = false
+                this.$emit('priceFilter', this.minValue, this.maxValue)
             },
 
             touchend(ev, track){
@@ -130,6 +131,7 @@
                 }else{
                     this.moveTrack('track2', ev)
                 }
+                this.$emit('priceFilter', this.minValue, this.maxValue)
             }
         },
 

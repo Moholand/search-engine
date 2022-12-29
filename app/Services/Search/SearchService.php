@@ -25,7 +25,7 @@ class SearchService
         if (isset($data['category'])) {
             $queryArray = $this->getCategoryQuery($data['category'], $queryArray);
         }
-        if (isset($data['price_from']) || isset($data['price_to'])) {
+        if (isset($data['price_from']) && isset($data['price_to'])) {
             $queryArray = $this->getPriceyQuery($data['price_from'], $data['price_to'], $queryArray);
         }
 
@@ -133,8 +133,8 @@ class SearchService
         $queryArray['bool']['filter'][] = [
             'range' => [
                 'price' => [
-                    'gte' => $priceFrom ?? 0,
-                    'lte' => $priceTo ?? Product::max('price')
+                    'gte' => $priceFrom,
+                    'lte' => $priceTo
                 ]
             ]
         ];

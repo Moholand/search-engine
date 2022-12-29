@@ -16,7 +16,7 @@
                 <hr>
                 <li>
                     <label for="categories" class="ms-3">محدوده قیمت:</label>
-                    <PriceRange />
+                    <PriceRange @priceFilter="priceFilter"/>
                 </li>
                 <hr>
             </ul>
@@ -36,8 +36,6 @@ export default {
         return {
             categories: null,
             products: null,
-            priceFrom: null,
-            priceTo: null
         }
     },
     created() {
@@ -58,9 +56,9 @@ export default {
                 console.log(error);
             }
         },
-        async priceRange() {
+        async priceFilter(priceFrom, priceTo) {
             try {
-                this.products = (await axios.get(`/api/products/search?query=&priceFrom=${this.priceFrom}&priceTo=${this.priceTo}`)).data;
+                this.products = (await axios.get(`/api/products/search?query=&price_from=${priceFrom}&price_to=${priceTo}`)).data;
                 this.$emit('filterOn', this.products)
             } catch (error) {
                 console.log(error);

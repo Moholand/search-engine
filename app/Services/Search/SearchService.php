@@ -42,7 +42,7 @@ class SearchService
         $urlWithQu = isset($data['title']) ? $url . $data['title'] : $url;
         $urlWithCat = isset($data['category']) ? $urlWithQu . '&category=' . $data['category'] : $urlWithQu;
         $urlWithPrice = isset($data['price_from']) || isset($data['price_to'])
-            ? $urlWithCat . '&priceFrom=' . $data['price_from'] . '&priceTo' . $data['price_to'] : $urlWithCat;
+            ? $urlWithCat . '&price_from=' . $data['price_from'] . '&price_to=' . $data['price_to'] : $urlWithCat;
 
         return new LengthAwarePaginator (
             $result_data,

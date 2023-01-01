@@ -7,7 +7,7 @@
                         class="nav-item pagination-item"
                         v-for="(link, index) in links"
                         :key="`link-${index}`"
-                        :disabled="!link.url"
+                        :disabled="!link.url || (index === (links.length - 1))"
                         :class="[
                           link.active ? 'link-active' : '',
                           index === 0 ? 'border-right' : '',
@@ -35,26 +35,32 @@ export default {
     methods: {
         changeOnPage(event, link) {
             event.preventDefault();
-
-            this.$emit('getForPage', link);
+            link.url ? this.$emit('getForPage', link) : null;
         }
     }
 }
 </script>
 
 <style scoped>
-.pagination-item {
-    border: 1px solid #b2bec3;
-    padding: 1px 5px;
-}
-.border-right {
-    border-radius: 0 5px 5px 0;
-}
-.border-left {
-    border-radius: 5px 0 0 5px;
-}
-.link-active {
-    border: 1px solid #35d4d4;
-    background: #81ecec;
-}
+    .pagination-item {
+        border: 1px solid #b2bec3;
+        padding: 1px 5px;
+    }
+
+    .pagination-item[disabled="true"] a {
+        cursor: default !important;
+    }
+
+    .border-right {
+        border-radius: 0 5px 5px 0;
+    }
+
+    .border-left {
+        border-radius: 5px 0 0 5px;
+    }
+
+    .link-active {
+        border: 1px solid #35d4d4;
+        background: #81ecec;
+    }
 </style>

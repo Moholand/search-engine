@@ -59,7 +59,7 @@
                     return;
                 }
                 // this.loading = true;
-                console.log(link);
+
                 try {
                     this.products = (await axios.get(link.url)).data;
                 } catch (error) {

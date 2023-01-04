@@ -10,7 +10,7 @@
                 </div>
                 <div class="status d-flex flex-row-reverse mb-1">
                     <div class="points">
-                        <span class="ms-1">{{ product.point }}</span>
+                        <span class="ms-1">{{ (product.point)/10 }}</span>
                         <i class="fa-solid fa-star"></i>
                     </div>
                 </div>

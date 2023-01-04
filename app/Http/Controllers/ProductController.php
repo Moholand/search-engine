@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Search\SearchRequest;
 use App\Models\Product;
 use App\Services\Search\SearchService;
-use Elastic\Elasticsearch\Client;
 
 class ProductController extends Controller
 {

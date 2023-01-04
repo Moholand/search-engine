@@ -15,7 +15,7 @@ class SearchService
     {
         $this->client = $client;
     }
-    public function search(array $data, int $page, int $perPage): LengthAwarePaginator
+    public function search(?array $data, int $page, int $perPage): LengthAwarePaginator
     {
         $queryArray = $this->getQueryArray();
 
@@ -87,7 +87,12 @@ class SearchService
         $params = [
             'index' => 'products',
             'body' => [
-                'query' => $queryArray
+                'query' => $queryArray,
+                'sort' => [
+                    'point' => [
+                        'order' => 'desc'
+                    ]
+                ]
             ]
         ];
 
@@ -95,7 +100,12 @@ class SearchService
             $params = array_merge($params, ['body' => [
                 'query' => $queryArray,
                 'size' => $perPage,
-                'from' => ($page - 1) * $perPage
+                'from' => ($page - 1) * $perPage,
+                'sort' => [
+                    'point' => [
+                        'order' => 'desc'
+                    ]
+                ]
             ]]);
         }
         return $params;
@@ -103,18 +113,14 @@ class SearchService
 
     public function getTitleQuery(string $title, array $queryArray): array
     {
-        $tokens = explode(' ', $title);
-
-        foreach ($tokens as $token) {
-            $queryArray['bool']['must'][] = [
-                'match' => [
-                    'title' => [
-                        'query' => $token,
-                        'fuzziness' => 'AUTO'
-                    ]
+        $queryArray['bool']['must'][] = [
+            'match' => [
+                'title' => [
+                    'query' => $title,
+                    'fuzziness' => 'AUTO'
                 ]
-            ];
-        }
+            ]
+        ];
         return $queryArray;
     }
 

@@ -15,6 +15,7 @@ class SearchService
     {
         $this->client = $client;
     }
+
     public function search(?array $data, int $page, int $perPage): LengthAwarePaginator
     {
         $queryArray = $this->getQueryArray();
@@ -87,12 +88,7 @@ class SearchService
         $params = [
             'index' => 'products',
             'body' => [
-                'query' => $queryArray,
-                'sort' => [
-                    'point' => [
-                        'order' => 'desc'
-                    ]
-                ]
+                'query' => $queryArray
             ]
         ];
 
@@ -100,12 +96,7 @@ class SearchService
             $params = array_merge($params, ['body' => [
                 'query' => $queryArray,
                 'size' => $perPage,
-                'from' => ($page - 1) * $perPage,
-                'sort' => [
-                    'point' => [
-                        'order' => 'desc'
-                    ]
-                ]
+                'from' => ($page - 1) * $perPage
             ]]);
         }
         return $params;

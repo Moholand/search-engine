@@ -30,7 +30,7 @@ class IndexModelCommand extends Command
     public function handle()
     {
         try {
-            Product::with('category')
+            Product::with('category', 'brand')
                 ->chunk(100, function ($records) {
                     foreach ($records as $record) {
                         dispatch(new IndexModelJob($record->id, $record->toArray()));

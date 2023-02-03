@@ -19,7 +19,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        return response()->json(Product::paginate(self::RESULT_PER_PAGE),200);
+        return response()->json(Product::with('brand')->paginate(self::RESULT_PER_PAGE),200);
     }
 
     public function search(SearchRequest $request)

@@ -8,10 +8,13 @@
                 <div class="title">
                     {{ product.title }}
                 </div>
-                <div class="status d-flex flex-row-reverse mb-1">
+                <div class="status d-flex flex-row-reverse justify-content-between align-items-center mb-1">
                     <div class="points">
                         <span class="ms-1">{{ (product.point)/10 }}</span>
                         <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="brand">
+                        <span>{{ product.brand.name_farsi }}</span>
                     </div>
                 </div>
                 <div class="price d-flex flex-row-reverse">
@@ -62,11 +65,15 @@
     }
 
     .price {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .price .unit{
         font-size: 12px;
         transform: translate(0, 3px);
+    }
+
+    .brand {
+        font-size: 15px;
     }
 </style>

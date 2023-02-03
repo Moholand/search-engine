@@ -140,6 +140,10 @@ class SearchService
             $product_item['price'] = $product['price'];
             $product_item['point'] = $product['point'];
             $product_item['image'] = $product['image'];
+            $product_item['brand'] = [
+                'name'       => $product['brand']['name'],
+                'name_farsi' => $product['brand']['name_farsi']
+            ];
 
             $products[$key] = $product_item;
         }

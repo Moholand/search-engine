@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -32,6 +33,7 @@ class CategorySeeder extends Seeder
                 Product::factory()->create([
                     'title' => $category->name . ' ' . str_replace(".", "", Faker::word()),
                     'category_id' => $category->id,
+                    'brand_id' => rand(1, Brand::count()),
                     'image' => '/images/products/' . $category->id . rand(1,3) . '.jpg'
                 ]);
             }

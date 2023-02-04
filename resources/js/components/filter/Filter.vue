@@ -3,6 +3,15 @@
         <div class="filter-title">فیلترها</div>
         <div class="filter-list-wrapper">
             <ul class="filter-list mt-4 px-0" v-if="categories">
+                <li>
+                    <div class="o-container">
+                        <div class="o-row o-flex u-mt2">
+                                <MultiSelect :options="options" @checked="onCheck"></MultiSelect>
+                            <div class="col"><pre>{{ selected }}</pre></div>
+                        </div>
+                    </div>
+                </li>
+                <hr>
                 <li class="d-flex">
                     <label for="categories" class="ms-3">دسته‌بندی</label>
 
@@ -29,13 +38,29 @@
 
 <script>
 import PriceRange from "./PriceRange.vue";
+import MultiSelect from "./MultiSelect.vue";
 
 export default {
-    components: {PriceRange},
+    components: { PriceRange, MultiSelect },
     data() {
         return {
             categories: null,
             products: null,
+            selected: [],
+            options: [
+                {
+                    text: 'Uno',
+                    value: 1
+                },
+                {
+                    text: 'Dos',
+                    value: 'dos'
+                },
+                {
+                    text: 'Tres',
+                    value: 'Tres'
+                }
+            ]
         }
     },
     created() {
@@ -63,12 +88,15 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        onCheck(val) {
+            this.selected = val;
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
     .filtre-wrapper {
         width: 20%;
         border: 1px solid #d5d8df;

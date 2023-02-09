@@ -6,8 +6,8 @@
                 <li>
                     <div class="o-container">
                         <div class="o-row o-flex u-mt2">
-                                <MultiSelect :options="options" @checked="onCheck"></MultiSelect>
-                            <div class="col"><pre>{{ selected }}</pre></div>
+                                <MultiSelect :options="brands" @checked="onCheckBrand"></MultiSelect>
+                            <div class="col"><pre>{{ selectedBrands }}</pre></div>
                         </div>
                     </div>
                 </li>
@@ -46,27 +46,22 @@ export default {
         return {
             categories: null,
             products: null,
-            selected: [],
-            options: [
-                {
-                    text: 'Uno',
-                    value: 1
-                },
-                {
-                    text: 'Dos',
-                    value: 'dos'
-                },
-                {
-                    text: 'Tres',
-                    value: 'Tres'
-                }
-            ]
+            brands: null,
+            selectedBrands: [],
         }
     },
     created() {
         axios.get('api/categories')
             .then((response) => {
                 this.categories = response.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        axios.get('api/brands')
+            .then((response) => {
+                this.brands = response.data;
             })
             .catch((error) => {
                 console.log(error);
@@ -89,8 +84,17 @@ export default {
                 console.log(error);
             }
         },
-        onCheck(val) {
-            this.selected = val;
+        async brandFilter(brand) {
+            try {
+                this.products = (await axios.get(`/api/products/search?query=&brand=${brand}`)).data;
+                this.$emit('filterOn', this.products)
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        onCheckBrand(val) {
+            // this.selectedBrands = val;
+            this.brandFilter(val);
         }
     }
 }

@@ -28,6 +28,7 @@ class SearchRequest extends FormRequest
             'category'   => 'nullable|exists:categories,id',
             'price_from' => 'nullable|integer',
             'price_to'   => 'nullable|integer',
+            'brand'      => 'nullable|string',
         ];
     }
 }

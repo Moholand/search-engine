@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
@@ -25,3 +26,4 @@ Route::get('/products/search', [ProductController::class, 'search']);
 Route::get('/products/recommendations', [ProductController::class, 'recommendations']);
 
 Route::resource('/categories', CategoryController::class)->only('index');
+Route::resource('/brands', BrandController::class)->only('index');

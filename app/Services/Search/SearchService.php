@@ -29,6 +29,9 @@ class SearchService
         if (isset($data['price_from']) && isset($data['price_to'])) {
             $queryArray = $this->getPriceyQuery($data['price_from'], $data['price_to'], $queryArray);
         }
+        if (isset($data['brand'])) {
+            $queryArray = $this->getBrandQuery($data['brand'], $queryArray);
+        }
 
         $params = $this->getParams($queryArray, $perPage, $page);
 
@@ -69,6 +72,7 @@ class SearchService
         return [
             'bool' => [
                 'must' => [],
+                'should' => [],
                 'filter' => []
             ]
         ];
@@ -126,6 +130,21 @@ class SearchService
                 ]
             ]
         ];
+        return $queryArray;
+    }
+
+    public function getBrandQuery(string $brand, array $queryArray): array
+    {
+        $brandArray = explode(',', $brand);
+
+        foreach ($brandArray as $brand) {
+            $queryArray['bool']['should'][] = [
+                'match' => [
+                    'brand.name' => $brand
+                ],
+            ];
+        }
+
         return $queryArray;
     }
 

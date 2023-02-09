@@ -12,10 +12,10 @@
         <div class="multiselect" v-if="show">
             <ul class="list">
                 <li v-for="(option, index) in options" :key="index" class="d-flex align-items-center">
-                    <input type="checkbox" class="checkbox-icon" :id="index" :value="option.value" v-model="selected">
+                    <input type="checkbox" class="checkbox-icon" :id="index" :value="option.name" v-model="selected">
                     <div class="brand-text d-flex justify-content-between me-2">
-                        <span>{{ option.text }}</span>
-                        <span class="me-auto">ایسوس</span>
+                        <span>{{ option.name }}</span>
+                        <span class="me-auto">{{ option.name_farsi }}</span>
                     </div>
                 </li>
             </ul>

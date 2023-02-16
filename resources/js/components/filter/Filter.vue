@@ -1,15 +1,11 @@
 <template>
+<!--    TODO: price filter on selected brand-->
     <div class="filtre-wrapper">
         <div class="filter-title">فیلترها</div>
         <div class="filter-list-wrapper">
             <ul class="filter-list mt-4 px-0" v-if="categories">
                 <li>
-                    <div class="o-container">
-                        <div class="o-row o-flex u-mt2">
-                                <MultiSelect :options="brands" @checked="onCheckBrand"></MultiSelect>
-                            <div class="col"><pre>{{ selectedBrands }}</pre></div>
-                        </div>
-                    </div>
+                    <MultiSelect title="برند" :options="brands" @checked="onCheckBrand"></MultiSelect>
                 </li>
                 <hr>
                 <li class="d-flex">
@@ -51,21 +47,8 @@ export default {
         }
     },
     created() {
-        axios.get('api/categories')
-            .then((response) => {
-                this.categories = response.data;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        axios.get('api/brands')
-            .then((response) => {
-                this.brands = response.data;
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        axios.get('api/categories').then(response => this.categories = response.data).catch(error => console.log(error));
+        axios.get('api/brands').then(response => this.brands = response.data).catch(error => console.log(error));
     },
     methods: {
         async filterCategory(event) {
@@ -84,17 +67,16 @@ export default {
                 console.log(error);
             }
         },
-        async brandFilter(brand) {
+        async brandFilter(brands) {
             try {
-                this.products = (await axios.get(`/api/products/search?query=&brand=${brand}`)).data;
+                this.products = (await axios.get(`/api/products/search?query=&brand=${brands}`)).data;
                 this.$emit('filterOn', this.products)
             } catch (error) {
                 console.log(error);
             }
         },
-        onCheckBrand(val) {
-            // this.selectedBrands = val;
-            this.brandFilter(val);
+        onCheckBrand(brands) {
+            this.brandFilter(brands);
         }
     }
 }
@@ -108,11 +90,9 @@ export default {
         padding: 16px 20px;
         margin-left: 20px;
     }
-
     .filter-list {
         list-style-type: none;
     }
-
     .categories-select {
         padding-top: 1px;
         padding-bottom: 1px;

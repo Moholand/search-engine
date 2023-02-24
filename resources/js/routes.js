@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Products from './components/products/Products.vue';
 import ProductDetail from './components/ProductDetail.vue';
+import Search from "./components/Search/Search.vue";
 
 const routes = [
     {
@@ -11,6 +12,11 @@ const routes = [
         path: '/products/:id',
         name: 'ProductDetail',
         component: ProductDetail
+    },
+    {
+        path: '/search',
+        name: 'Search',
+        component: Search
     }
 ]
 

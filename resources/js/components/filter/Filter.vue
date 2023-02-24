@@ -1,5 +1,4 @@
 <template>
-<!--    TODO: price filter on selected brand-->
     <div class="filtre-wrapper">
         <div class="filter-title">فیلترها</div>
         <div class="filter-list-wrapper">
@@ -68,12 +67,14 @@ export default {
             }
         },
         async brandFilter(brands) {
-            try {
-                this.products = (await axios.get(`/api/products/search?query=&brand=${brands}`)).data;
-                this.$emit('filterOn', this.products)
-            } catch (error) {
-                console.log(error);
-            }
+            // try {
+            //     this.products = (await axios.get(`/api/products/search?query=&brand=${brands}`)).data;
+            //     this.$emit('filterOn', this.products)
+            // } catch (error) {
+            //     console.log(error);
+            // }
+            // Navigate to the appropriate route with the selected brand
+            this.$router.push({ name: 'Search', query: { query: '', brand: brands } });
         },
         onCheckBrand(brands) {
             this.brandFilter(brands);

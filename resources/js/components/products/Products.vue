@@ -1,37 +1,25 @@
 <template>
-    <Header
-        @onSearch="onSearch"
-    />
-    <div class="products">
-        <div class="products-wrapper d-flex">
-            <Filter
-                @filterOn="filterOn"
+    <div class="product-list-wrapper" v-if="products.data.length">
+        <div class="d-flex flex-wrap">
+            <ProductItem
+                v-for="(product, index) in products.data"
+                :key="`product-${index}`"
+                :product="product"
             />
-            <div class="product-list-wrapper" v-if="products.data.length">
-                <div class="d-flex flex-wrap">
-                    <ProductItem
-                        v-for="(product, index) in products.data"
-                        :key="`product-${index}`"
-                        :product="product"
-                    />
-                </div>
-                <Pagination :links="products.links" @getForPage="getForPage"/>
-            </div>
-            <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
-                محصولی انتخابی وجود ندارد!
-            </div>
         </div>
+        <Pagination :links="products.links" @getForPage="getForPage"/>
+    </div>
+    <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
+        محصولی انتخابی وجود ندارد!
     </div>
 </template>
 
 <script>
-    import Header from '../header/Header.vue'
     import ProductItem from './ProductItem.vue';
     import Pagination from '../Pagination.vue';
-    import Filter from "../filter/Filter.vue";
 
     export default {
-        components: {Filter, ProductItem, Header, Pagination},
+        components: { ProductItem, Pagination},
         data() {
             return {
                 products: null,
@@ -47,9 +35,9 @@
                 });
         },
         methods: {
-            onSearch(data) {
-                this.products = data;
-            },
+            // onSearch(data) {
+            //     this.products = data;
+            // },
             filterOn(data) {
                 this.products = data;
             },

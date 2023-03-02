@@ -52,8 +52,7 @@
                 if(event.keyCode === 13 && this.search) { // Client pressed enter key
                     try {
                         this.recommendations = null;
-                        this.products = (await axios.get(`/api/products/search?title=${this.search}`)).data;
-                        this.$emit('onSearch', this.products)
+                        this.$router.push({ name: 'Search', query: { query: this.search } });
                     } catch (error) {
                         console.log(error);
                     }
@@ -88,38 +87,31 @@
         padding: 20px 0;
         border-bottom: #d5d8df 2px solid;
     }
-
     .header-block {
         background-color: #ffffff;
         margin-right: 81px;
     }
-
     .logo {
         transform: translate(0, -4px);
     }
-
     .search-form {
         position: relative;
         width: 35%;
     }
-
     .search-input {
         padding: 12px 45px;
         font-size: 14px;
         color: #a1a3a8;
     }
-
     #search-addon {
         background-color: transparent;
         position: absolute;
         right: 0;
         top: 6px;
     }
-
     #search-addon i {
         color: #a1a3a8;
     }
-
     .recommendations-wrapper {
         position: absolute;
         left: 0;
@@ -131,11 +123,9 @@
         margin: 0 13px;
         z-index: 20;
     }
-
     .recommendations-wrapper li {
         cursor: pointer;
     }
-
     .recommendations-wrapper li:hover {
         cursor: pointer;
         background-color: #f1f2f6;

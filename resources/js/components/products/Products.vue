@@ -35,9 +35,6 @@
                 });
         },
         methods: {
-            // onSearch(data) {
-            //     this.products = data;
-            // },
             filterOn(data) {
                 this.products = data;
             },
@@ -46,14 +43,13 @@
                 if(!link.url || link.active) {
                     return;
                 }
-                // this.loading = true;
 
                 try {
                     this.products = (await axios.get(link.url)).data;
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // add scroll to top
                 } catch (error) {
                     throw error;
                 }
-                // this.loading = false;
             }
         }
     }
@@ -66,11 +62,9 @@
         font-size: 20px;
         font-weight: bold
     }
-
     .products-wrapper {
         margin: 0 81px;
     }
-
     .product-list-wrapper {
         width: 80%;
     }

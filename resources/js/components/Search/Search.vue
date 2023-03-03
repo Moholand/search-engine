@@ -26,17 +26,31 @@ export default {
         }
     },
     created() {
-        // TODO: fix search and pagination
         this.fetchProducts();
     },
     methods: {
         getQueryParams() {
-            return Object.keys(this.$route.query).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(this.$route.query[key])).join('&');
+            return Object.keys(this.$route.query)
+                .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(this.$route.query[key]))
+                .join('&');
         },
         fetchProducts() {
             axios.get('/api/products/search?' + this.getQueryParams())
                 .then(response => this.products = response.data)
                 .catch(error => console.log(error));
+        },
+        async getForPage(link = {}) {
+            link.url = link && link.url ? link.url : '/api/products';
+            if(!link.url || link.active) {
+                return;
+            }
+
+            try {
+                this.products = (await axios.get(link.url)).data;
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // add scroll to top
+            } catch (error) {
+                throw error;
+            }
         }
     },
     watch: {

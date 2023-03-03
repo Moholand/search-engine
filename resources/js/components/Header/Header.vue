@@ -52,7 +52,7 @@
                 if(event.keyCode === 13 && this.search) { // Client pressed enter key
                     try {
                         this.recommendations = null;
-                        this.$router.push({ name: 'Search', query: { query: this.search } });
+                        this.$router.push({ name: 'Search', query: { title: this.search } });
                     } catch (error) {
                         console.log(error);
                     }

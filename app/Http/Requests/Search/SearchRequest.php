@@ -25,7 +25,7 @@ class SearchRequest extends FormRequest
     {
         return [
             'title'      => 'nullable|string|max:255',
-            'category'   => 'nullable|exists:categories,id',
+            'category'   => 'nullable|string',
             'price_from' => 'nullable|integer',
             'price_to'   => 'nullable|integer',
             'brand'      => 'nullable|string',

@@ -18,6 +18,7 @@ class SearchService
 
     public function search(?array $data, int $page, int $perPage): LengthAwarePaginator
     {
+        // TODO: what a patten that shoul i use and 404 error
         $queryArray = $this->getQueryArray();
 
         if (isset($data['title'])) {
@@ -110,13 +111,18 @@ class SearchService
         return $queryArray;
     }
 
-    public function getCategoryQuery(string $category, array $queryArray): array
+    public function getCategoryQuery(string $categories, array $queryArray): array
     {
-        $queryArray['bool']['filter'][] = [
-            'term' => [
-                'category_id' => $category
-            ]
-        ];
+        $categoryArray = explode(',', $categories);
+
+        foreach ($categoryArray as $category) {
+            $queryArray['bool']['should'][] = [
+                'match' => [
+                    'category.name' => $category
+                ],
+            ];
+        }
+
         return $queryArray;
     }
 

@@ -1,22 +1,14 @@
 <template>
-    // TODO: nicer filter on category
     <div class="filtre-wrapper">
         <div class="filter-title">فیلترها</div>
         <div class="filter-list-wrapper">
             <ul class="filter-list mt-4 px-0" v-if="categories">
                 <li>
-                    <MultiSelect title="برند" :options="brands" @checked="onCheckBrand"></MultiSelect>
+                    <MultiSelect title="برند" :options="brands" @checked="onCheckBrand" />
                 </li>
                 <hr>
-                <li class="d-flex">
-                    <label for="categories" class="ms-3">دسته‌بندی</label>
-
-                    <select class="form-select categories-select" name="categories" id="categories" @change="filterCategory($event)">
-                        <option selected>همه دسته‌ها</option>
-                        <option v-for="category in categories" :value="category.id">
-                            {{ category.name }}
-                        </option>
-                    </select>
+                <li>
+                    <MultiSelect title="دسته‌بندی" :options="categories" @checked="onCheckCategory" />
                 </li>
                 <hr>
                 <li>
@@ -51,23 +43,24 @@ export default {
         axios.get('api/brands').then(response => this.brands = response.data).catch(error => console.log(error));
     },
     methods: {
-        async filterCategory(event) {
-            try {
-                this.products = (await axios.get(`/api/products/search?query=&category=${event.target.value}`)).data;
-                this.$emit('filterOn', this.products)
-            } catch (error) { console.log(error) }
+        categoryFilter(categories) {
+            // Navigate to the appropriate route with the selected categories
+            this.$router.push({ name: 'Search', query: { query: '', category: categories.join(',') } });
         },
-        async priceFilter(priceFrom, priceTo) {
+        priceFilter(priceFrom, priceTo) {
             // Update query parameters and navigate to 'Search' page
             const queryParams = { ...this.$route.query, price_from: priceFrom, price_to: priceTo };
             this.$router.push({ name: 'Search', query: queryParams });
         },
-        async brandFilter(brands) {
+        brandFilter(brands) {
             // Navigate to the appropriate route with the selected brand
-            this.$router.push({ name: 'Search', query: { query: '', brand: brands } });
+            this.$router.push({ name: 'Search', query: { query: '', brand: brands.join(',') } });
         },
         onCheckBrand(brands) {
             this.brandFilter(brands);
+        },
+        onCheckCategory(categories) {
+            this.categoryFilter(categories);
         }
     }
 }
@@ -83,9 +76,5 @@ export default {
     }
     .filter-list {
         list-style-type: none;
-    }
-    .categories-select {
-        padding-top: 1px;
-        padding-bottom: 1px;
     }
 </style>

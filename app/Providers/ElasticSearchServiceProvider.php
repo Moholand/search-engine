@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Elastic\Elasticsearch\Client;
-use Elastic\Elasticsearch\ClientBuilder;
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class ElasticSearchServiceProvider extends ServiceProvider

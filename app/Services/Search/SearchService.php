@@ -2,39 +2,25 @@
 
 namespace App\Services\Search;
 
-use Elastic\Elasticsearch\Client;
+use Elasticsearch\Client;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 
 class SearchService
 {
-    private Client $client;
+    // TODO: chack and unckeck with reload and other check
+    public function __construct(private Client $client) {}
 
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-    }
-
+    /**
+     * @param array|null $data
+     * @param int $page
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
     public function search(?array $data, int $page, int $perPage): LengthAwarePaginator
     {
-        // TODO: what a patten that shoul i use and 404 error
-        $queryArray = $this->getQueryArray();
-
-        if (isset($data['title'])) {
-            $queryArray = $this->getTitleQuery($data['title'], $queryArray);
-        }
-        if (isset($data['category'])) {
-            $queryArray = $this->getCategoryQuery($data['category'], $queryArray);
-        }
-        if (isset($data['price_from']) && isset($data['price_to'])) {
-            $queryArray = $this->getPriceyQuery($data['price_from'], $data['price_to'], $queryArray);
-        }
-        if (isset($data['brand'])) {
-            $queryArray = $this->getBrandQuery($data['brand'], $queryArray);
-        }
-
-        $params = $this->getParams($queryArray, $perPage, $page);
+        $params = $this->buildSearchParams($data, $page, $perPage);
 
         $result = $this->client->search($params);
 
@@ -47,6 +33,76 @@ class SearchService
         );
 
         return $this->loadProducts($products->withQueryString());
+    }
+
+    /**
+     * @param array|null $data
+     * @param int $page
+     * @param int $perPage
+     * @return array
+     */
+    private function buildSearchParams(?array $data, int $page, int $perPage): array
+    {
+        $queryArray = $this->getQueryArray();
+
+        $queryArray = $this->addTitleQuery($data, $queryArray);
+        $queryArray = $this->addCategoryQuery($data, $queryArray);
+        $queryArray = $this->addPriceQuery($data, $queryArray);
+        $queryArray = $this->addBrandQuery($data, $queryArray);
+
+        return $this->getParams($queryArray, $perPage, $page);
+    }
+
+    /**
+     * @param array|null $data
+     * @param array $queryArray
+     * @return array
+     */
+    private function addTitleQuery(?array $data, array $queryArray): array
+    {
+        if (isset($data['title'])) {
+            return $this->getTitleQuery($data['title'], $queryArray);
+        }
+        return $queryArray;
+    }
+
+    /**
+     * @param array|null $data
+     * @param array $queryArray
+     * @return array
+     */
+    private function addCategoryQuery(?array $data, array $queryArray): array
+    {
+        if (isset($data['category'])) {
+            return $this->getCategoryQuery($data['category'], $queryArray);
+        }
+        return $queryArray;
+    }
+
+    /**
+     * @param array|null $data
+     * @param array $queryArray
+     * @return array
+     */
+    private function addPriceQuery(?array $data, array $queryArray): array
+    {
+        if (isset($data['price_from']) && isset($data['price_to'])) {
+            return $this->getPriceyQuery($data['price_from'], $data['price_to'], $queryArray);
+        }
+        return $queryArray;
+    }
+
+    /**
+     * @param array|null $data
+     * @param array $queryArray
+     * @return array
+     */
+    private function addBrandQuery(?array $data, array $queryArray): array
+    {
+        if (isset($data['brand'])) {
+            return $this->getBrandQuery($data['brand'], $queryArray);
+        }
+        return $queryArray;
     }
 
     public function recommendations(string $title): ?array

@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: chack and unckeck with reload and other check
+    // TODO: Add loading
     public function __construct(private Client $client) {}
 
     /**

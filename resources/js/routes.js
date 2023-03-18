@@ -6,6 +6,7 @@ import Search from "./components/Search/Search.vue";
 const routes = [
     {
         path: '/',
+        name: 'home',
         component: Products
     },
     {

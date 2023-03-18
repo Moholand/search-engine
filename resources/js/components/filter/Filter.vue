@@ -4,11 +4,11 @@
         <div class="filter-list-wrapper">
             <ul class="filter-list mt-4 px-0" v-if="categories">
                 <li>
-                    <MultiSelect title="برند" :options="brands" @checked="onCheckBrand" />
+                    <MultiSelect :title="{ english: 'brand', persian: 'برند' }" :options="brands" @checked="onCheckBrand" />
                 </li>
                 <hr>
                 <li>
-                    <MultiSelect title="دسته‌بندی" :options="categories" @checked="onCheckCategory" />
+                    <MultiSelect :title="{ english: 'category', persian: 'دسته بندی' }" :options="categories" @checked="onCheckCategory" />
                 </li>
                 <hr>
                 <li>

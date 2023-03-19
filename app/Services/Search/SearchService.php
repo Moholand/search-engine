@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Add loading
+    // TODO: Selected filter
     public function __construct(private Client $client) {}
 
     /**

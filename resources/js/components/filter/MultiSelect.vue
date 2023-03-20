@@ -3,7 +3,10 @@
         <div class="dropdown" @click="showDropdown">
             <div class="overselect"></div>
             <div class="c-form-input d-flex justify-content-between align-items-center">
-                <span>{{ title.persian }}</span>
+                <div class="title-block">
+                    <span>{{ title.persian }}</span>
+                    <span class="selected-circle" :class="{ active: selected.length !== 0 }"></span>
+                </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
                     <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
                 </svg>
@@ -83,6 +86,22 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
+    }
+    .title-block {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .selected-circle {
+        width: 5px;
+        height: 5px;
+        margin: 10px;
+        background-color: #19bfd3;
+        border-radius: 50%;
+        display: none;
+    }
+    .selected-circle.active {
+        display: block;
     }
     .bi-caret-down {
         transform: translateY(5px);

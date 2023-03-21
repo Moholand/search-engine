@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: SELECTED TITLE
+    // TODO: Pagination
     public function __construct(private Client $client) {}
 
     /**

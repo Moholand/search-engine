@@ -23,6 +23,9 @@
                 </li>
             </ul>
         </div>
+        <div class="selected-items" v-if="selected.length !== 0">
+            {{ selected.toString() }}
+        </div>
     </div>
 </template>
 
@@ -70,7 +73,7 @@ export default {
     }
     .multiselect ul {
         left: 0px;
-        padding: 15px 0px;
+        padding: 20px 0px;
         top: -1rem;
         width: 100%;
         list-style: none;
@@ -78,7 +81,7 @@ export default {
         overflow: auto;
     }
     .multiselect li {
-        padding-bottom: 10px;
+        padding-bottom: 15px;
     }
     .overselect {
         position: absolute;
@@ -88,6 +91,7 @@ export default {
         right: 0;
     }
     .title-block {
+        font-size: 20px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -112,5 +116,10 @@ export default {
     }
     .brand-text {
         font-size: 16px;
+    }
+    .selected-items {
+        font-size: 16px;
+        color: #767790;
+        padding-top: 15px;
     }
 </style>

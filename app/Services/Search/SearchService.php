@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Pagination
+    // TODO: Pagination style
     public function __construct(private Client $client) {}
 
     /**
@@ -195,17 +195,31 @@ class SearchService
         return $queryArray;
     }
 
+    /**
+     * @param string $brand
+     * @param array $queryArray
+     * @return array
+     */
     public function getBrandQuery(string $brand, array $queryArray): array
     {
         $brandArray = explode(',', $brand);
 
+        $shouldClauses = [];
+
         foreach ($brandArray as $brand) {
-            $queryArray['bool']['should'][] = [
+            $shouldClauses[] = [
                 'match' => [
                     'brand.name' => $brand
                 ],
             ];
         }
+
+        $queryArray['bool']['must'][] = [
+            'bool' => [
+                'should' => $shouldClauses,
+                'minimum_should_match' => 1
+            ]
+        ];
 
         return $queryArray;
     }

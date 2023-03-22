@@ -5,6 +5,12 @@
         </div>
         <div v-else>
             <div v-if="products.data.length">
+                <div class="product-list-header d-flex flex-row-reverse">
+                    <div class="total-count">
+                        <span class="ps-1">{{ new Intl.NumberFormat().format(products.total) }}</span>
+                        <span>کالا</span>
+                    </div>
+                </div>
                 <div class="d-flex flex-wrap">
                     <ProductItem
                         v-for="(product, index) in products.data"
@@ -77,5 +83,13 @@ export default {
     .product-list-wrapper {
         position: relative;
         width: 80%;
+    }
+    .product-list-header {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #d5d8df;
+    }
+    .product-list-header .total-count {
+        font-size: 14px;
+        font-weight: 400;
     }
 </style>

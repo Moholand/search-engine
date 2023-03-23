@@ -29,7 +29,7 @@
 
 <script>
 import ProductItem from "../products/ProductItem.vue";
-import Pagination from "../Pagination.vue";
+import Pagination from "../Tools/Pagination/Pagination.vue";
 import Loading from "../Tools/Loading/Loading.vue";
 
 export default {

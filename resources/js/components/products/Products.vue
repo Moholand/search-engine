@@ -16,7 +16,7 @@
 
 <script>
     import ProductItem from './ProductItem.vue';
-    import Pagination from '../Pagination.vue';
+    import Pagination from '../Tools/Pagination/Pagination.vue';
 
     export default {
         components: { ProductItem, Pagination},
@@ -57,7 +57,7 @@
 
 <style>
     .products {
-        padding: 20px 0;
+        padding: 40px 0;
         color: #424750;
         font-size: 20px;
         font-weight: bold

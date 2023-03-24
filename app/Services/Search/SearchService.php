@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Fix Pagination style
+    // TODO: Sorting
     public function __construct(private Client $client) {}
 
     /**

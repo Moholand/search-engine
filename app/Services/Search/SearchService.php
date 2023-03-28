@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Sorting
+    // TODO: Sorting on backend
     public function __construct(private Client $client) {}
 
     /**

@@ -26,7 +26,7 @@
 import ProductItem from "../products/ProductItem.vue";
 import Pagination from "../Tools/Pagination/Pagination.vue";
 import Loading from "../Tools/Loading/Loading.vue";
-import ListHeader from "./ListHeader.vue";
+import ListHeader from "./Sorting.vue";
 
 export default {
     components: {ListHeader, ProductItem, Pagination, Loading },

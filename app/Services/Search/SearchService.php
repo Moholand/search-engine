@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Sorting on backend
+    // TODO: Loading and icon on sort
     public function __construct(private Client $client) {}
 
     /**
@@ -50,7 +50,7 @@ class SearchService
         $queryArray = $this->addPriceQuery($data, $queryArray);
         $queryArray = $this->addBrandQuery($data, $queryArray);
 
-        return $this->getParams($queryArray, $perPage, $page);
+        return $this->getParams($queryArray, $perPage, $page, $data['sort'] ?? null);
     }
 
     /**
@@ -135,22 +135,36 @@ class SearchService
         ];
     }
 
-    public function getParams(array $queryArray, ?int $perPage = null, ?int $page = null): array
+    /**
+     * @param array $queryArray
+     * @param int|null $perPage
+     * @param int|null $page
+     * @param string|null $sort
+     * @return array
+     */
+    public function getParams(array $queryArray, ?int $perPage = null, ?int $page = null, ?string $sort = null): array
     {
         $params = [
             'index' => 'products',
             'body' => [
-                'query' => $queryArray
+                'query' => $queryArray,
             ]
         ];
 
         if ($perPage && $page) {
-            $params = array_merge($params, ['body' => [
-                'query' => $queryArray,
-                'size' => $perPage,
-                'from' => ($page - 1) * $perPage
-            ]]);
+            $params['body']['size'] = $perPage;
+            $params['body']['from'] = ($page - 1) * $perPage;
         }
+
+        if ($sort) {
+            [$sortField, $sortOrder] = explode(',', $sort);
+            $params['body']['sort'] = [
+                $sortField => [
+                    'order' => $sortOrder
+                ]
+            ];
+        }
+
         return $params;
     }
 

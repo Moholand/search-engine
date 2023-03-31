@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Loading and icon on sort
+    // TODO: Saving soting values
     public function __construct(private Client $client) {}
 
     /**

@@ -1,7 +1,10 @@
 <template>
     <section class="product-list-header d-flex flex-row justify-content-between">
         <div class="sort-list-wrapper d-flex">
-            <p class="list-header ms-2 mb-0">مرتب‌سازی:</p>
+            <p class="list-header ms-3 mb-0">
+                <i class="fa-solid fa-arrow-down-short-wide"></i>
+                <span class="me-2">مرتب‌سازی:</span>
+            </p>
             <p class="sort-list-item" :class="{ selected: isSelected('_score,desc') }" @click="onSort('_score,desc')">
                 مرتبط‌ترین
             </p>

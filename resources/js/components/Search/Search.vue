@@ -29,7 +29,7 @@ import Loading from "../Tools/Loading/Loading.vue";
 import ListHeader from "./Sorting.vue";
 
 export default {
-    components: {ListHeader, ProductItem, Pagination, Loading },
+    components: { ListHeader, ProductItem, Pagination, Loading },
     data() {
         return {
             products: null,
@@ -37,9 +37,7 @@ export default {
         }
     },
     created() {
-        this.isLoading = true;
         this.fetchProducts();
-        this.isLoading = false;
     },
     methods: {
         getQueryParams() {
@@ -47,10 +45,16 @@ export default {
                 .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(this.$route.query[key]))
                 .join('&');
         },
-        fetchProducts() {
-            axios.get('/api/products/search?' + this.getQueryParams())
-                .then(response => this.products = response.data)
-                .catch(error => console.log(error));
+        async fetchProducts() {
+            this.isLoading = true;
+
+            try {
+                this.products = (await axios.get('/api/products/search?' + this.getQueryParams())).data
+            } catch (error) {
+                console.log(error)
+            } finally {
+                this.isLoading = false;
+            }
         },
         async getForPage(link = {}) {
             link.url = link && link.url ? link.url : '/api/products';

@@ -5,20 +5,14 @@
                 <i class="fa-solid fa-arrow-down-short-wide"></i>
                 <span class="me-2">مرتب‌سازی:</span>
             </p>
-            <p class="sort-list-item" :class="{ selected: isSelected('_score,desc') }" @click="onSort('_score,desc')">
-                مرتبط‌ترین
-            </p>
-            <p class="sort-list-item" :class="{ selected: isSelected('created_at,desc') }" @click="onSort('created_at,desc')">
-                جدید‌ترین
-            </p>
-            <p class="sort-list-item" :class="{ selected: isSelected('price,asc') }" @click="onSort('price,asc')">
-                ارزان‌ترین
-            </p>
-            <p class="sort-list-item" :class="{ selected: isSelected('price,desc') }" @click="onSort('price,desc')">
-                گران‌ترین
-            </p>
-            <p class="sort-list-item" :class="{ selected: isSelected('point,desc') }" @click="onSort('point,desc')">
-                محبوب‌ترین
+            <p
+                v-for="sortingTitle in sortingTitles"
+                class="sort-list-item"
+                :class="{ selected: isSelected(sortingTitle.method) }"
+                @click="onSort(sortingTitle.method)"
+                :key="'title_' + sortingTitle.method"
+            >
+                {{ sortingTitle.titleFarsi }}
             </p>
         </div>
         <div class="total-count">
@@ -32,6 +26,17 @@
 export default {
     props: {
         total: Number
+    },
+    data() {
+        return {
+            sortingTitles: [
+                { titleFarsi: 'مرتبط‌ترین', method: '_score,desc'},
+                { titleFarsi: 'جدید‌ترین' , method: 'created_at,desc'},
+                { titleFarsi: 'ارزان‌ترین', method: 'price,asc'},
+                { titleFarsi:  'گران‌ترین', method: 'price,desc'},
+                { titleFarsi: 'محبوب‌ترین', method: 'point,desc'},
+            ]
+        }
     },
     methods: {
         onSort(method) {

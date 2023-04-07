@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Saving soting values
+    // TODO: New font
     public function __construct(private Client $client) {}
 
     /**

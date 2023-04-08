@@ -34,8 +34,7 @@ export default {
         return {
             categories: null,
             products: null,
-            brands: null,
-            selectedBrands: [],
+            brands: null
         }
     },
     created() {
@@ -54,7 +53,8 @@ export default {
         },
         brandFilter(brands) {
             // Navigate to the appropriate route with the selected brand
-            this.$router.push({ name: 'Search', query: { query: '', brand: brands.join(',') } });
+            const queryParams = { ...this.$route.query, brand: brands.join(',') };
+            this.$router.push({ name: 'Search', query: queryParams });
         },
         onCheckBrand(brands) {
             this.brandFilter(brands);

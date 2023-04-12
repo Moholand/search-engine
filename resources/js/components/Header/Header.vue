@@ -2,9 +2,9 @@
     <div class="header d-flex align-items-center">
         <div class="header-block w-100">
             <div class="d-flex">
-                <router-link :to="{ name: 'home' }" class="logo">
+                <a href="/" class="logo">
                     <img src="/images/logos/logo.png" width="115" height="45"/>
-                </router-link>
+                </a>
                 <div class="search-form ml-auto px-2">
                     <div class="input-group rounded">
                         <input

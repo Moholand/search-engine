@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: Clear selected
+    // TODO: work on detail page
     public function __construct(private Client $client) {}
 
     /**

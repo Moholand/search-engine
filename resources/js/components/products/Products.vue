@@ -1,25 +1,31 @@
 <template>
-    <div class="product-list-wrapper" v-if="products.data.length">
-        <div class="d-flex flex-wrap">
-            <ProductItem
-                v-for="(product, index) in products.data"
-                :key="`product-${index}`"
-                :product="product"
-            />
+    <div class="products">
+        <div class="products-wrapper d-flex">
+            <Filter />
+            <div class="product-list-wrapper" v-if="products.data.length">
+                <div class="d-flex flex-wrap">
+                    <ProductItem
+                        v-for="(product, index) in products.data"
+                        :key="`product-${index}`"
+                        :product="product"
+                    />
+                </div>
+                <Pagination :links="products.links" @getForPage="getForPage"/>
+            </div>
+            <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
+                محصولی انتخابی وجود ندارد!
+            </div>
         </div>
-        <Pagination :links="products.links" @getForPage="getForPage"/>
-    </div>
-    <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
-        محصولی انتخابی وجود ندارد!
     </div>
 </template>
 
 <script>
     import ProductItem from './ProductItem.vue';
     import Pagination from '../Tools/Pagination/Pagination.vue';
+    import Filter from "../filter/Filter.vue";
 
     export default {
-        components: { ProductItem, Pagination},
+        components: { Filter, ProductItem, Pagination},
         data() {
             return {
                 products: null,
@@ -35,9 +41,6 @@
                 });
         },
         methods: {
-            filterOn(data) {
-                this.products = data;
-            },
             async getForPage(link = {}) {
                 link.url = link && link.url ? link.url : '/api/products';
                 if(!link.url || link.active) {

@@ -1,6 +1,6 @@
 <template>
     <div class="product-list-item p-2">
-        <router-link :to="{ name: 'ProductDetail', params: { id: product.id  }}" class="text-decoration-none">
+        <a :href="'/products/' + product.id" class="text-decoration-none" target="_blank">
             <div class="product-image mb-3">
                 <img width="240" heigh="240" :src="product.image" />
             </div>
@@ -22,7 +22,7 @@
                     <span class="ms-1">{{ new Intl.NumberFormat().format(product.price) }}</span>
                 </div>
             </div>
-        </router-link>
+        </a>
     </div>
 </template>
 

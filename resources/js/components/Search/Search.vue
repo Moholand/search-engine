@@ -1,22 +1,27 @@
 <template>
-    <div class="product-list-wrapper">
-        <div v-if="isLoading">
-            <loading :is-loading="isLoading" />
-        </div>
-        <div v-else>
-            <div v-if="products.data.length">
-                <ListHeader :total="products.total" />
-                <div class="d-flex flex-wrap">
-                    <ProductItem
-                        v-for="(product, index) in products.data"
-                        :key="`product-${index}`"
-                        :product="product"
-                    />
+    <div class="products">
+        <div class="products-wrapper d-flex">
+            <Filter />
+            <div class="product-list-wrapper">
+                <div v-if="isLoading">
+                    <loading :is-loading="isLoading" />
                 </div>
-                <Pagination :links="products.links" @getForPage="getForPage"/>
-            </div>
-            <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
-                محصولی انتخابی وجود ندارد!
+                <div v-else>
+                    <div v-if="products.data.length">
+                        <ListHeader :total="products.total" />
+                        <div class="d-flex flex-wrap">
+                            <ProductItem
+                                v-for="(product, index) in products.data"
+                                :key="`product-${index}`"
+                                :product="product"
+                            />
+                        </div>
+                        <Pagination :links="products.links" @getForPage="getForPage"/>
+                    </div>
+                    <div class="alert alert-danger text-center flex-grow-1" role="alert" v-else>
+                        محصولی انتخابی وجود ندارد!
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -27,9 +32,10 @@ import ProductItem from "../products/ProductItem.vue";
 import Pagination from "../Tools/Pagination/Pagination.vue";
 import Loading from "../Tools/Loading/Loading.vue";
 import ListHeader from "./Sorting.vue";
+import Filter from "../filter/Filter.vue";
 
 export default {
-    components: { ListHeader, ProductItem, Pagination, Loading },
+    components: { Filter, ListHeader, ProductItem, Pagination, Loading },
     data() {
         return {
             products: null,

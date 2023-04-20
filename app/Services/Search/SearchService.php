@@ -9,7 +9,6 @@ use Illuminate\Support\Arr;
 
 class SearchService
 {
-    // TODO: work on detail page
     public function __construct(private Client $client) {}
 
     /**

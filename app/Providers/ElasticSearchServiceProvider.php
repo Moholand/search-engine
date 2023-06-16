@@ -17,7 +17,7 @@ class ElasticSearchServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Client::class, function () {
             return ClientBuilder::create()
-                ->setHosts([env('ELASTIC_HOST') . ':' . env('ELASTIC_PORT')])
+                ->setHosts([env('ELASTIC_HOST') ?? '127.0.0.1' . ':' . env('ELASTIC_PORT') ?? 9200])
                 ->build();
         });
     }

@@ -17,12 +17,11 @@ class ProductController extends Controller
         $this->searchService = $searchService;
     }
 
-    // TODO: refactore this method. use elastic and write tests
-    public function index()
-    {
-        return response()->json(Product::with('brand')->paginate(self::RESULT_PER_PAGE),200);
-    }
-
+    // TODO: Detail page
+    /**
+     * @param SearchRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function search(SearchRequest $request)
     {
         $result = $this->searchService->search($request->validated(), $request->query('page', 1), self::RESULT_PER_PAGE);

@@ -86,6 +86,15 @@ export default {
 </script>
 
 <style scoped>
+    .products {
+        padding: 40px 0;
+        color: #424750;
+        font-size: 20px;
+        font-weight: bold
+    }
+    .products-wrapper {
+        margin: 0 81px;
+    }
     .product-list-wrapper {
         position: relative;
         width: 80%;

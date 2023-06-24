@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import ProductDetail from './components/ProductDetail.vue';
+import ProductDetail from './components/products/Show/ProductDetail.vue';
 import Search from "./components/Search/Search.vue";
 
 const routes = [

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Search\SearchRequest;
+use App\Models\Product;
 use App\Services\Search\SearchService;
 
 class ProductController extends Controller
@@ -16,7 +17,15 @@ class ProductController extends Controller
         $this->searchService = $searchService;
     }
 
-    // TODO: Detail page
+    /**
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Product $product)
+    {
+        return response()->json($product,200);
+    }
+
     /**
      * @param SearchRequest $request
      * @return \Illuminate\Http\JsonResponse
@@ -28,6 +37,10 @@ class ProductController extends Controller
         return response()->json($result,200);
     }
 
+    /**
+     * @param SearchRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function recommendations(SearchRequest $request)
     {
         $result = $this->searchService->recommendations($request->get('title'));

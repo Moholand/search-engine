@@ -21,9 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/products', ProductController::class)->only('index');
 Route::get('/products/search', [ProductController::class, 'search']);
 Route::get('/products/recommendations', [ProductController::class, 'recommendations']);
+Route::resource('/products', ProductController::class)->only('show');
 
 Route::resource('/categories', CategoryController::class)->only('index');
 Route::resource('/brands', BrandController::class)->only('index');

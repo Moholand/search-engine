@@ -10,12 +10,8 @@ class ProductController extends Controller
 {
     const RESULT_PER_PAGE = 20;
 
-    private SearchService $searchService;
-
-    public function __construct(SearchService $searchService)
-    {
-        $this->searchService = $searchService;
-    }
+    public function __construct(private SearchService $searchService)
+    {}
 
     /**
      * @param Product $product

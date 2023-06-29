@@ -15,6 +15,14 @@
                     <i class="fa-solid fa-star"></i>
                     <span class="px-1">{{ product.point / 10 }}</span>
                 </div>
+                <div class="price">
+                    <div class="my-tooltip">
+                        <i class="fa-solid fa-info"></i>
+                        <span class="tooltiptext">This is a tooltip</span>
+                        <div class="box">This is a box that opens when the tooltip is hovered over</div>
+                    </div>
+                    <span class="px-2">قیمت فرشنده</span>
+                </div>
             </div>
         </div>
     </section>
@@ -73,5 +81,51 @@ export default {
     }
     .product-information-column .aggregation i {
         color: #f9bc00;
+    }
+    .price {
+        font-size: 12px;
+    }
+    .my-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+    .my-tooltip i {
+        color: #9e9fb1;
+        padding: 4px 6px;
+        border: 1px solid #9e9fb1;
+        border-radius: 50%;
+        font-size: 8px;
+    }
+    .my-tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .my-tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .box {
+        display: none;
+        background-color: #f1f1f1;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .my-tooltip:hover .box {
+        display: block;
     }
 </style>

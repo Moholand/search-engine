@@ -4,7 +4,7 @@
             محصولات  /  موبایل  /  گوشی موبایل
         </div>
         <div class="d-flex">
-            <div class="col-md-4 product-image-column">
+            <div class="col-md-4 product-image-column px-5">
                 <img :src="product.image" :alt="product.name"/>
             </div>
             <div class="col-md-8 product-information-column">
@@ -18,6 +18,11 @@
                 <div class="price">
                     <Tooltip text="این کالا توسط فروشنده آن قیمت گذاری شده است"/>
                     <span class="px-2">قیمت فرشنده</span>
+                    <span class="pe-5 number">{{ new Intl.NumberFormat().format(product.price) }}</span>
+                    <span class="px-2">تومان</span>
+                </div>
+                <div class="my-5 order-btn">
+                    افزودن به سبد
                 </div>
             </div>
         </div>
@@ -25,10 +30,7 @@
 </template>
 
 <script>
-import Tooltip from "../../Tools/Tip/Tooltip.vue";
-
 export default {
-    components: {Tooltip},
     data() {
         return {
             product: null,
@@ -65,7 +67,7 @@ export default {
         padding: 25px 0;
     }
     .product-image-column img {
-        max-width: 100%
+        max-width: 100%;
     }
     .product-information-column .title {
         font-size: 19px;
@@ -83,5 +85,20 @@ export default {
     }
     .price {
         font-size: 12px;
+    }
+    .price .number {
+        font-size: 19px;
+        font-weight: bold;
+    }
+    .order-btn {
+        display: flex;
+        justify-content: center;
+        background-color: #ef4056;
+        max-width: 300px;
+        padding: 10px 25px;
+        color: #ffffff;
+        border-radius: 10px;
+        font-size: 12px;
+        cursor: pointer;
     }
 </style>

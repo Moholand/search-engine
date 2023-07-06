@@ -26,6 +26,12 @@
                 </div>
             </div>
         </div>
+        <div class="benefits d-flex justify-content-between">
+            <div v-for="(benefit, index) in benefits" :key="`benefit-${index}`" class="benefits-item col-md-2 text-center">
+                <img :src="`/images/logos/benefits/${benefit.logo}`" :alt="benefit.text"/>
+                <span class="text px-2">{{ benefit.text }}</span>
+            </div>
+        </div>
     </section>
 </template>
 
@@ -34,7 +40,14 @@ export default {
     data() {
         return {
             product: null,
-            isLoading: false
+            isLoading: false,
+            benefits: [
+                { logo: 'express-delivery.svg', text: 'امکان تحویل اکسپرس' },
+                { logo: 'support.svg', text: '۲۴ ساعته، ۷ روز هفته' },
+                { logo: 'cash-on-delivery.svg', text: 'امکان پرداخت در محل' },
+                { logo: 'days-return.svg', text: 'هفت روز ضمانت بازگشت کالا' },
+                { logo: 'original-products.svg', text: 'ضمانت اصل بودن کالا' },
+            ]
         }
     },
     created() {
@@ -100,5 +113,19 @@ export default {
         border-radius: 10px;
         font-size: 12px;
         cursor: pointer;
+    }
+    .benefits {
+        margin-top: 10px;
+        border-top: 1px solid #e0e0e6;
+        border-bottom: 4px solid #f1f2f4;
+        padding: 15px 0 35px 0;
+    }
+    .benefits-item {
+        cursor: pointer;
+    }
+    .benefits .text {
+        font-size: 11px;
+        font-weight: bold;
+        color: #9e9fb1;
     }
 </style>

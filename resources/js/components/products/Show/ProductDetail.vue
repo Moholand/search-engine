@@ -3,11 +3,11 @@
         <div class="my-breadcrumb">
             محصولات  /  موبایل  /  گوشی موبایل
         </div>
-        <div class="d-flex">
-            <div class="col-md-4 product-image-column px-5">
+        <div class="d-flex flex-md-row flex-column">
+            <div class="col-md-4 col-12 product-image-column md:px-5">
                 <img :src="product.image" :alt="product.name"/>
             </div>
-            <div class="col-md-8 product-information-column">
+            <div class="col-md-8 col-12 product-information-column">
                 <div class="title">
                     {{ product.title }}
                 </div>
@@ -15,14 +15,16 @@
                     <i class="fa-solid fa-star"></i>
                     <span class="px-1">{{ product.point / 10 }}</span>
                 </div>
-                <div class="price">
-                    <Tooltip text="این کالا توسط فروشنده آن قیمت گذاری شده است"/>
-                    <span class="px-2">قیمت فرشنده</span>
-                    <span class="pe-5 number">{{ new Intl.NumberFormat().format(product.price) }}</span>
-                    <span class="px-2">تومان</span>
-                </div>
-                <div class="my-5 order-btn">
-                    افزودن به سبد
+                <div class="purchase-block">
+                    <div class="price">
+                        <Tooltip text="این کالا توسط فروشنده آن قیمت گذاری شده است"/>
+                        <span class="px-2">قیمت فرشنده</span>
+                        <span class="pe-5 number">{{ new Intl.NumberFormat().format(product.price) }}</span>
+                        <span class="px-2">تومان</span>
+                    </div>
+                    <div class="my-5 order-btn">
+                        افزودن به سبد
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,5 +129,24 @@ export default {
         font-size: 11px;
         font-weight: bold;
         color: #9e9fb1;
+    }
+    /* Styles for mobile devices */
+    @media only screen and (max-width: 767px) {
+        .product-detail-wrapper {
+            padding: 0 20px 100px 20px;
+        }
+        .product-information-column .title {
+            font-size: 15px;
+        }
+        .purchase-block {
+            position: fixed;
+            bottom: 0;
+            z-index: 3;
+            left: 0;
+            background-color: #ffffff;
+            width: 100%;
+            height: 100px;
+            padding: 12px 20px;
+        }
     }
 </style>

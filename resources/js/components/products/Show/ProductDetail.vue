@@ -18,11 +18,13 @@
                 <div class="purchase-block">
                     <div class="price">
                         <Tooltip text="این کالا توسط فروشنده آن قیمت گذاری شده است"/>
-                        <span class="px-2">قیمت فرشنده</span>
-                        <span class="pe-5 number">{{ new Intl.NumberFormat().format(product.price) }}</span>
-                        <span class="px-2">تومان</span>
+                        <div class="price-block">
+                            <span class="px-2 d-none d-md-block">قیمت فرشنده</span>
+                            <span class="pe-5 number">{{ new Intl.NumberFormat().format(product.price) }}</span>
+                            <span class="px-2">تومان</span>
+                        </div>
                     </div>
-                    <div class="my-5 order-btn">
+                    <div class="order-btn my-5">
                         افزودن به سبد
                     </div>
                 </div>
@@ -100,6 +102,12 @@ export default {
     }
     .price {
         font-size: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .price-block {
+        display: flex;
+        align-items: center;
     }
     .price .number {
         font-size: 19px;
@@ -142,11 +150,34 @@ export default {
             position: fixed;
             bottom: 0;
             z-index: 3;
+            display: flex;
+            flex-direction: row-reverse;
             left: 0;
             background-color: #ffffff;
             width: 100%;
             height: 100px;
             padding: 12px 20px;
+            box-shadow: 0 -1px 1px rgba(0,0,0,.14), 0 -2px 2px rgba(0,0,0,.05);
+        }
+        .price {
+            flex: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            margin-top: auto;
+            align-items: flex-end;
+        }
+        .price-block {
+            font-size: 10px;
+        }
+        .price-block .number {
+            font-size: 16px !important;
+        }
+        .order-btn {
+            flex: 1;
+            width: 50%;
+            margin: auto 0 0 0 !important;
+            max-height: 40px;
         }
     }
 </style>

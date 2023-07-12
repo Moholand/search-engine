@@ -5,7 +5,7 @@
         </div>
         <div class="d-flex flex-md-row flex-column">
             <div class="col-md-4 col-12 product-image-column md:px-5">
-                <img :src="product.image" :alt="product.name"/>
+                <img :src="product.image" :alt="product.title"/>
             </div>
             <div class="col-md-8 col-12 product-information-column">
                 <div class="title">

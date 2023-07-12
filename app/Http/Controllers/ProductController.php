@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Search\SearchRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Services\Search\SearchService;
 
@@ -14,12 +15,14 @@ class ProductController extends Controller
     {}
 
     /**
+     * Route: GET::/api/products/{product}
+     *
      * @param Product $product
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Product $product)
     {
-        return response()->json($product,200);
+        return response()->json(new ProductResource($product),200);
     }
 
     /**

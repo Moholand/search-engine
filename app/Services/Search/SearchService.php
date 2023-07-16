@@ -2,7 +2,9 @@
 
 namespace App\Services\Search;
 
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\Exception\ClientResponseException;
+use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
@@ -16,6 +18,8 @@ class SearchService
      * @param int $page
      * @param int $perPage
      * @return LengthAwarePaginator
+     * @throws ClientResponseException
+     * @throws ServerResponseException
      */
     public function search(?array $data, int $page, int $perPage): LengthAwarePaginator
     {

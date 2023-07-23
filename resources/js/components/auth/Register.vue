@@ -9,26 +9,28 @@
             <h1 class="mt-4 heading">
                 ثبت نام
             </h1>
-            <p class="mt-4">
+            <p class="form-label mt-4">
                 سلام!
             </p>
-            <div>
-                <label for="name">Name</label>
-                <input type="text" v-model="user.name">
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="text" v-model="user.email">
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" v-model="user.password">
-            </div>
-            <div>
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" v-model="user.password_confirmation">
-            </div>
-            <button @click="Register()">Register</button>
+            <form>
+                <div class="row mb-3 mx-0">
+                    <label for="name" class="form-label">نام:</label>
+                    <input type="text" v-model="user.name">
+                </div>
+                <div class="row mb-3 mx-0">
+                    <label for="email" class="form-label">ایمیل:</label>
+                    <input type="text" v-model="user.email">
+                </div>
+                <div class="row mb-3 mx-0">
+                    <label for="password" class="form-label">رمز عبور:</label>
+                    <input type="password" v-model="user.password">
+                </div>
+                <div class="row mb-3 mx-0">
+                    <label for="password_confirmation" class="form-label">تایید رمز عبور:</label>
+                    <input type="password" v-model="user.password_confirmation">
+                </div>
+            </form>
+            <button class="submit-button mt-3 w-100" @click="Register()">ثبت نام</button>
         </div>
     </section>
 </template>
@@ -75,5 +77,27 @@ export default {
         font-size: 19px;
         font-weight: bold;
         color: #080a38;
+    }
+    .form-label {
+        font-size: 12px;
+        color: #3f4064;
+    }
+    form label {
+        display: block;
+        padding: 0;
+    }
+    form input {
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #3f4064;
+    }
+    .submit-button {
+        background-color: #ef4056;
+        border: 1px solid #ef4056;
+        color: #ffffff;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 14px;
+        font-weight: bold;
     }
 </style>

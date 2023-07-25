@@ -11,19 +11,22 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
         $requestData = $request->all();
         $validator = Validator::make($requestData,[
-            'name' => 'required|max:55',
-            'email' => 'email|required|unique:users',
+            'name'     => 'required|string|max:255',
+            'surname'  => 'required|string|max:255',
+            'email'    => 'email|required|unique:users',
             'password' => 'required|confirmed'
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $requestData['password'] = Hash::make($requestData['password']);

@@ -9,54 +9,78 @@
             <h1 class="mt-4 heading">
                 ثبت نام
             </h1>
-            <p class="form-label mt-4">
-                سلام!
-            </p>
-            <form>
+            <form class="mt-4">
                 <div class="row mb-3 mx-0">
                     <label for="name" class="form-label">نام:</label>
-                    <input type="text" v-model="user.name">
+                    <input type="text" v-model="user.name" :class="{'border-danger': errors && errors.name}">
+                    <span
+                        v-if="errors && errors.name" v-text="errors.name[0]"
+                        class="error-text mt-1"
+                    ></span>
+                </div>
+                <div class="row mb-3 mx-0">
+                    <label for="name" class="form-label">نام خانوادگی:</label>
+                    <input type="text" v-model="user.surname" :class="{'border-danger': errors && errors.surname}">
+                    <span
+                        v-if="errors && errors.surname" v-text="errors.surname[0]"
+                        class="error-text mt-1"
+                    ></span>
                 </div>
                 <div class="row mb-3 mx-0">
                     <label for="email" class="form-label">ایمیل:</label>
-                    <input type="text" v-model="user.email">
+                    <input type="text" v-model="user.email" :class="{'border-danger': errors && errors.email}">
+                    <span
+                        v-if="errors && errors.email" v-text="errors.email[0]"
+                        class="error-text mt-1"
+                    ></span>
                 </div>
                 <div class="row mb-3 mx-0">
                     <label for="password" class="form-label">رمز عبور:</label>
-                    <input type="password" v-model="user.password">
+                    <input type="password" v-model="user.password" :class="{'border-danger': errors && errors.password}">
+                    <span
+                        v-if="errors && errors.password" v-text="errors.password[0]"
+                        class="error-text mt-1"
+                    ></span>
                 </div>
                 <div class="row mb-3 mx-0">
                     <label for="password_confirmation" class="form-label">تایید رمز عبور:</label>
                     <input type="password" v-model="user.password_confirmation">
                 </div>
             </form>
-            <button class="submit-button mt-3 w-100" @click="Register()">ثبت نام</button>
+            <button class="submit-button mt-3 w-100" @click.prevent="register">ثبت نام</button>
         </div>
     </section>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
             user: {
                 name: '',
+                surname: '',
                 email: '',
                 password: '',
                 password_confirmation: ''
-            }
+            },
+            errors: null
         };
     },
 
     methods: {
         register() {
-            console.log(this.user);
-            this.axios.post('http://127.0.0.1:8000/api/register', this.user)
+            this.errors = null;
+
+            axios.post('http://127.0.0.1:8000/api/register', this.user)
                 .then(({data}) => {
                     this.$router.push('/login');
                 })
                 .catch((error) => {
-                    console.log(error);
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors;
+                    }
                 });
         }
     }
@@ -99,5 +123,9 @@ export default {
         padding: 12px 16px;
         font-size: 14px;
         font-weight: bold;
+    }
+    .error-text {
+        font-size: 12px;
+        color: #ef4056;
     }
 </style>

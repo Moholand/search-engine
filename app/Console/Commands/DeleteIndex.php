@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use Elasticsearch\Client;
+use Elastic\Elasticsearch\Client;
 use Illuminate\Console\Command;
 
 class DeleteIndex extends Command

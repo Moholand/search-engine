@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ProductDetail from './components/products/Show/ProductDetail.vue';
+import Register from './components/auth/Register.vue';
+import Login from './components/auth/Login.vue';
 import Search from "./components/Search/Search.vue";
 
 const routes = [
@@ -7,6 +9,16 @@ const routes = [
         path: '/',
         name: 'home',
         redirect: '/search'
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login
     },
     {
         path: '/products/:id',

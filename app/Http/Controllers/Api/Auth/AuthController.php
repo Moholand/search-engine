@@ -54,7 +54,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'UnAuthorised Access'], 401);
         }
 
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $accessToken = auth()->user()->createToken('SearchEngine Personal Access Client')->accessToken;
 
         return response(['user' => auth()->user(), 'access_token' => $accessToken], 200);
     }

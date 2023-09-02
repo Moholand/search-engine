@@ -1,37 +1,42 @@
 <template>
     <div class="header d-flex align-items-center">
         <div class="header-block w-100">
-            <div class="d-flex">
-                <a href="/" class="logo">
-                    <img src="/images/logos/logo.png" width="115" height="45"/>
-                </a>
-                <div class="search-form ml-auto px-2">
-                    <div class="input-group rounded">
-                        <input
-                            type="search"
-                            class="form-control rounded search-input"
-                            placeholder="جستجو"
-                            aria-label="Search"
-                            aria-describedby="search-addon"
-                            v-model="search"
-                            v-on:keydown="searchStart"
-                        />
-                        <span class="input-group-text border-0" id="search-addon">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-grow-1">
+                    <a href="/" class="logo">
+                        <img src="/images/logos/logo.png" width="115" height="45"/>
+                    </a>
+                    <div class="search-form ml-auto px-2">
+                        <div class="input-group rounded">
+                            <input
+                                type="search"
+                                class="form-control rounded search-input"
+                                placeholder="جستجو"
+                                aria-label="Search"
+                                aria-describedby="search-addon"
+                                v-model="search"
+                                v-on:keydown="searchStart"
+                            />
+                            <span class="input-group-text border-0" id="search-addon">
                         <i class="fas fa-search"></i>
                     </span>
+                        </div>
+                        <div class="recommendations-wrapper px-2" v-if="recommendations">
+                            <ul class="list-group mb-0 pe-0">
+                                <li
+                                    class="list-group-item"
+                                    v-for="(recommendation, index) in recommendations"
+                                    :key="`recommendation-${index}`"
+                                    @click="recommendationSelected($event)"
+                                >
+                                    {{ recommendation.title }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="recommendations-wrapper px-2" v-if="recommendations">
-                        <ul class="list-group mb-0 pe-0">
-                            <li
-                                class="list-group-item"
-                                v-for="(recommendation, index) in recommendations"
-                                :key="`recommendation-${index}`"
-                                @click="recommendationSelected($event)"
-                            >
-                                {{ recommendation.title }}
-                            </li>
-                        </ul>
-                    </div>
+                </div>
+                <div>
+                    here
                 </div>
             </div>
         </div>

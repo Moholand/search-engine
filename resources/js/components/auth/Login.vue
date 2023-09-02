@@ -34,6 +34,7 @@
 
 <script>
 import axios from 'axios';
+import auth from '../../helpers/auth.js';
 
 export default {
     data() {
@@ -45,14 +46,14 @@ export default {
             errors: null
         };
     },
-
     methods: {
         login() {
             this.errors = null;
 
-            axios.post('http://127.0.0.1:8000/api/register', this.user)
+            axios.post('http://127.0.0.1:8000/api/login', this.user)
                 .then(({data}) => {
-                    this.$router.push('/login');
+                    auth.login(data.access_token, data.user);
+                    this.$router.push('/');
                 })
                 .catch((error) => {
                     if (error.response.status === 422) {

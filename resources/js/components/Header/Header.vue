@@ -35,8 +35,17 @@
                         </div>
                     </div>
                 </div>
-                <div>
-                    here
+                <div class="personal-menu">
+                    <div class="dropdown">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" href="#">User Name</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">خروج از حساب کاربری</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,5 +143,12 @@
     .recommendations-wrapper li:hover {
         cursor: pointer;
         background-color: #f1f2f6;
+    }
+    .personal-menu {
+        margin-left: 80px;
+    }
+    .dropdown-item {
+        font-size: 15px;
+        text-align: right;
     }
 </style>

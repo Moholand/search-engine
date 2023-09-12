@@ -35,17 +35,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="personal-menu">
-                    <div class="dropdown">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="personal-menu d-flex align-items-center">
+                    <div class="dropdown" v-if="loggedUser">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                           data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-user"></i>
                         </a>
                         <ul class="dropdown-menu text-small">
                             <li><a class="dropdown-item" href="#">User Name</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">خروج از حساب کاربری</a></li>
+                            <li><a class="dropdown-item" @click="logout">خروج از حساب کاربری</a></li>
                         </ul>
                     </div>
+                    <button class="btn login-register" v-else>
+                        <router-link class="text-decoration-none" to="/login">ورود|ثبت‌نام</router-link>
+                    </button>
                 </div>
             </div>
         </div>
@@ -53,12 +57,14 @@
 </template>
 
 <script>
+    import Auth from '../../helpers/auth';
     export default {
         data() {
             return {
                 search: null,
                 products: null,
-                recommendations: null
+                recommendations: null,
+                loggedUser: Auth.user
             }
         },
         methods: {
@@ -87,6 +93,15 @@
                 try {
                     this.products = (await axios.get(`/api/products/search?title=${this.search}`)).data;
                     this.$emit('onSearch', this.products)
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async logout() {
+                try {
+                    await axios.post('/api/logout');
+                    Auth.logout();
+                    this.loggedUser = null;
                 } catch (error) {
                     console.log(error);
                 }
@@ -147,8 +162,19 @@
     .personal-menu {
         margin-left: 80px;
     }
+    .link-body-emphasis {
+        color: #080a38 !important;
+    }
     .dropdown-item {
         font-size: 15px;
         text-align: right;
+        cursor: pointer;
+    }
+    .login-register {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .login-register a {
+        color: #080a38 !important;
     }
 </style>

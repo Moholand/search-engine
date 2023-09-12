@@ -73,7 +73,7 @@ export default {
         register() {
             this.errors = null;
 
-            axios.post('http://127.0.0.1:8000/api/register', this.user)
+            axios.post('/api/register', this.user)
                 .then(({data}) => {
                     this.$router.push('/login');
                 })

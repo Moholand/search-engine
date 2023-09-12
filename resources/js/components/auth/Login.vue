@@ -50,7 +50,7 @@ export default {
         login() {
             this.errors = null;
 
-            axios.post('http://127.0.0.1:8000/api/login', this.user)
+            axios.post('/api/login', this.user)
                 .then(({data}) => {
                     auth.login(data.access_token, data.user);
                     this.$router.push('/');

@@ -4,10 +4,7 @@
             <div class="category-item" v-for="category in categories">
                 <router-link :to="{ name: 'Search', query: { category: category.name} }"
                              class="d-flex flex-column align-items-center text-decoration-none">
-                    <img
-                        src="https://ps.w.org/gazchaps-woocommerce-auto-category-product-thumbnails/assets/icon-256x256.png?rev=1848416"
-                        width="75" height="75"
-                    >
+                    <img :src="category.image" :alt="category.title" width="75" height="75">
                     <span class="category-name">{{ category.name }}</span>
                 </router-link>
             </div>
@@ -41,6 +38,8 @@ export default {
     }
     .category-item img {
         border-radius: 50%;
+        border: 2px solid #a1a3a8;
+        padding: 2px;
     }
     .category-name {
         font-size: 13px;

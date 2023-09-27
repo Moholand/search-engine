@@ -28,13 +28,20 @@ trait ProductFactory
     }
 
     /**
-     * @return Category
+     * @param int $count
+     * @return \Illuminate\Support\Collection|Category
      */
-    public function createCategory(): Category
+    public function createCategory(int $count = 1): mixed
     {
-        return Category::create([
-            'name' => 'test category'
-        ]);
+        if ($count === 1) {
+            return Category::create(['name' => 'test category']);
+        }
+
+        $categories = [];
+        for ($i = 0; $i < $count; $i++) {
+            $categories[] = Category::create(['name' => 'test category' . $i]);
+        }
+        return collect($categories);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\Product\CategoryService;
+use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,7 @@ class CategoryController extends Controller
     /**
      * Route(GET):: /api/categories
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {

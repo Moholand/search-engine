@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Traits\Test\ProductFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -18,19 +20,22 @@ class CategoryTest extends TestCase
         $categories = $this->createCategory(3);
 
         foreach ($categories as $category) {
-            $product = $this->createProduct($category->id);
+            $this->createProduct($category->id);
         }
 
-        $response = $this->get('/api/categories')->assertOk();
-
-        $response->assertJsonStructure([
-            '*' => [
-                'id',
-                'name',
-                'image',
-            ],
+        $response = $this->get('/api/categories')->assertOk()->assertJsonStructure([
+            '*' => ['id', 'name', 'image']
         ]);
 
-        // Todo: Assert that each category in the response has the correct image attribute
+        $responseCollections = $categories->map(function (Category $category) {
+            return [
+                'id'    => $category['id'],
+                'name'  => $category['name'],
+                'image' => Product::query()->where('category_id', $category['id'])->first()?->image
+            ];
+        });
+
+        // Each category in the response must have the correct image attribute
+        $response->assertJson($responseCollections->toArray());
     }
 }

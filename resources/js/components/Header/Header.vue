@@ -42,7 +42,9 @@
                             <i class="fa-solid fa-user"></i>
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="#">User Name</a></li>
+                            <li><a class="dropdown-item" href="#" style="pointer-events: none">
+                                {{ loggedUser.name + ' ' + loggedUser.surname }}
+                            </a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" @click="logout">خروج از حساب کاربری</a></li>
                         </ul>

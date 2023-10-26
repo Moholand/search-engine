@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->string('title');
             $table->text('description');
             $table->integer('price')->comment('toman');;
@@ -23,7 +24,6 @@ return new class extends Migration
             $table->foreignId('brand_id')->constrained();
             $table->tinyInteger('point');
             $table->string('image');
-            $table->timestamps();
         });
     }
 

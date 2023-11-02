@@ -36,18 +36,23 @@
                     </div>
                 </div>
                 <div class="personal-menu d-flex align-items-center">
-                    <div class="dropdown" v-if="loggedUser">
-                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-user"></i>
-                        </a>
-                        <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="#" style="pointer-events: none">
-                                {{ loggedUser.name + ' ' + loggedUser.surname }}
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" @click="logout">خروج از حساب کاربری</a></li>
-                        </ul>
+                    <div v-if="loggedUser" class="d-flex">
+                        <div class="dropdown">
+                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
+                            <ul class="dropdown-menu text-small">
+                                <li><a class="dropdown-item" href="#" style="pointer-events: none">
+                                    {{ loggedUser.name + ' ' + loggedUser.surname }}
+                                </a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" @click="logout">خروج از حساب کاربری</a></li>
+                            </ul>
+                        </div>
+                        <div class="cart-icon pe-3 me-3">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </div>
                     </div>
                     <button class="btn login-register" v-else>
                         <router-link class="text-decoration-none" to="/login">ورود|ثبت‌نام</router-link>
@@ -178,5 +183,17 @@
     }
     .login-register a {
         color: #080a38 !important;
+    }
+    .cart-icon {
+        border-right: 1px solid #e0e0e2;
+        cursor: pointer;
+        color: #080a38 !important;
+    }
+    .dropdown-toggle::after {
+        margin-right: 0.355em;
+        margin-left: 0;
+    }
+    .link-body-emphasis {
+        color: #3f4064 !important;
     }
 </style>

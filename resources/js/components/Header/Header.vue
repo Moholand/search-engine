@@ -52,6 +52,7 @@
                         </div>
                         <div class="cart-icon pe-3 me-3">
                             <i class="fa-solid fa-cart-plus"></i>
+                            <div class="cart-count" v-if="cartItemCount">{{ cartItemCount }}</div>
                         </div>
                     </div>
                     <button class="btn login-register" v-else>
@@ -71,8 +72,12 @@
                 search: null,
                 products: null,
                 recommendations: null,
-                loggedUser: Auth.user
+                loggedUser: Auth.user,
+                cartItemCount: 0
             }
+        },
+        created() {
+            this.cartItemCount = axios.get(`/api/user/${this.loggedUser.id}/carts/items-count`);
         },
         methods: {
             async searchStart(event) {
@@ -188,6 +193,23 @@
         border-right: 1px solid #e0e0e2;
         cursor: pointer;
         color: #080a38 !important;
+        position: relative;
+    }
+    .cart-count {
+        position: absolute;
+        background-color: #ef4056;
+        color: #ffffff;
+        border-radius: 6px;
+        font-size: 10px;
+        font-weight: bold;
+        min-width: 18px;
+        height: 18px;
+        border: 2px solid #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 12px;
+        left: 12px;
     }
     .dropdown-toggle::after {
         margin-right: 0.355em;

@@ -29,3 +29,8 @@ Route::resource('/products', ProductController::class)->only('show');
 
 Route::resource('/categories', CategoryController::class)->only('index');
 Route::resource('/brands', BrandController::class)->only('index');
+
+// /api/carts
+Route::prefix('carts')->middleware('auth:api')->group(function () {
+    Route::get('items-count', [\App\Http\Controllers\Api\User\Cart\CartController::class, 'itemsCount']);
+});

@@ -77,7 +77,9 @@
             }
         },
         created() {
-            this.cartItemCount = axios.get(`/api/user/${this.loggedUser.id}/carts/items-count`);
+            axios.get(`/api/carts/items-count`)
+                .then(response => this.cartItemCount = response.data)
+                .catch(() => this.cartItemCount = 0)
         },
         methods: {
             async searchStart(event) {

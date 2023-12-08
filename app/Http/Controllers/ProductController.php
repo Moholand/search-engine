@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Search\SearchRequest;
 use App\Http\Resources\ProductResource;
-use App\Models\Product;
 use App\Services\Search\SearchService;
 
 class ProductController extends Controller

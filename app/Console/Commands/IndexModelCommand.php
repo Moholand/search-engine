@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Jobs\IndexModelJob;
-use App\Models\Product;
 use Illuminate\Console\Command;
 
 class IndexModelCommand extends Command

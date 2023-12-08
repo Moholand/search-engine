@@ -11,9 +11,13 @@ class CartController extends Controller
     public function __construct(private CartService $cartService)
     {}
 
+    /**
+     * Route:: GET:/api/carts/items-count
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function itemsCount()
     {
-        $count = $this->cartService->itemsCount(Auth::user());
+        return response()->json($this->cartService->itemsCount(Auth::user()),200);
     }
 }
-

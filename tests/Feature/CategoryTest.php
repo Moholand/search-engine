@@ -3,11 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
-use App\Models\Product;
 use App\Traits\Test\ProductFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class CategoryTest extends TestCase

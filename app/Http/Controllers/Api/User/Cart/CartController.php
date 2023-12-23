@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\User\Cart\CartService;
+use App\Tools\Constants;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -18,6 +19,6 @@ class CartController extends Controller
      */
     public function itemsCount()
     {
-        return response()->json($this->cartService->itemsCount(Auth::user()),200);
+        return response()->json(['data' => $this->cartService->itemsCount(Auth::user())],Constants::HTTP_STATUS_OK);
     }
 }

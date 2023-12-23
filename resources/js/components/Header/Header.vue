@@ -78,7 +78,7 @@
         },
         created() {
             axios.get(`/api/carts/items-count`)
-                .then(response => this.cartItemCount = response.data)
+                .then(response => this.cartItemCount = response.data.data)
                 .catch(() => this.cartItemCount = 0)
         },
         methods: {

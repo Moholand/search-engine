@@ -19,7 +19,10 @@ class Cart extends Model
 
     const STATUS_CREATED = 'created';
 
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'status'
+    ];
 
     public function products()
     {

@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         $user = User::create($requestData);
 
-        return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
+        return response([ 'status' => true, 'message' => 'Checkout successfully register.' ], 200);
     }
 
     public function login(Request $request)

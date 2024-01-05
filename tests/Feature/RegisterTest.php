@@ -27,7 +27,7 @@ class RegisterTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'status' => true,
-                'message' => 'User successfully register.'
+                'message' => 'Checkout successfully register.'
             ]);
 
         $this->assertDatabaseHas('users', [

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\User\Cart;
+namespace App\Http\Controllers\Api\Checkout\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\User\Cart\CartService;
@@ -12,6 +12,11 @@ class CartController extends Controller
     public function __construct(private CartService $cartService)
     {}
 
+    public function index()
+    {
+        return null;
+    }
+
     /**
      * Route:: GET:/api/carts/items-count
      *
@@ -19,6 +24,6 @@ class CartController extends Controller
      */
     public function itemsCount()
     {
-        return response()->json(['data' => $this->cartService->itemsCount(Auth::user())],Constants::HTTP_STATUS_OK);
+        return response()->json(['items_count' => $this->cartService->itemsCount(Auth::user())],Constants::HTTP_STATUS_OK);
     }
 }

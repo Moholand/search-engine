@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register', [\App\Http\Controllers\Api\Auth\AuthController::class, 'register']);
-Route::post('login', [\App\Http\Controllers\Api\Auth\AuthController::class, 'login']);
+Route::post('register', [\App\Http\Controllers\Api\Auth\AuthController::class, 'register'])->name('register');
+Route::post('login', [\App\Http\Controllers\Api\Auth\AuthController::class, 'login'])->name('login');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [\App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
@@ -32,5 +32,6 @@ Route::resource('/brands', BrandController::class)->only('index');
 
 // /api/carts
 Route::prefix('carts')->middleware('auth:api')->group(function () {
-    Route::get('items-count', [\App\Http\Controllers\Api\User\Cart\CartController::class, 'itemsCount']);
+    Route::get('', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'index']);
+    Route::get('items-count', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'itemsCount']);
 });

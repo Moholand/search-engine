@@ -12,10 +12,11 @@ class CartTest extends TestCase
 {
     use RefreshDatabase, UserFactory, ProductFactory;
 
-    public function testItemsCountEndpoint()
+    /** @test */
+    public function correctItemsCountWillBeReturns()
     {
         $this->withoutExceptionHandling();
-        $this->actingAs($user = $this->createUser());
+        $user = $this->createUser();
 
         $cart = Cart::create([
             'user_id' => $user->id,
@@ -25,6 +26,7 @@ class CartTest extends TestCase
         $cart->products()->attach($this->createProduct()->id, ['count' => 2]);
         $cart->products()->attach($this->createProduct()->id, ['count' => 4]);
 
-        $this->get('/api/carts/items-count')->assertOk();
+        $this->actingAs($user, 'api')->json('GET', '/api/carts/items-count')->assertOk()
+            ->assertJson(['items_count' => 6]);
     }
 }

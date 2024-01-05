@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 /**
- * Class User
+ * Class Checkout
  *
  * @property int $id
  * @property Collection|Cart[] carts

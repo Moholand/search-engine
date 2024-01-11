@@ -14,7 +14,7 @@ class CartController extends Controller
 
     public function index()
     {
-        return null;
+        $this->cartService->index(Auth::user());
     }
 
     /**
@@ -24,6 +24,8 @@ class CartController extends Controller
      */
     public function itemsCount()
     {
-        return response()->json(['items_count' => $this->cartService->itemsCount(Auth::user())],Constants::HTTP_STATUS_OK);
+        return response()->json(
+            ['items_count' => $this->cartService->itemsCount(Auth::user())],Constants::HTTP_STATUS_OK
+        );
     }
 }

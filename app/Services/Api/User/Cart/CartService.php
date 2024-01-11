@@ -10,6 +10,11 @@ class CartService
     public function __construct(private CartRepository $cartRepository)
     {}
 
+    public function index(User $user)
+    {
+        $this->cartRepository->index($user);
+    }
+
     public function itemsCount(User $user): int
     {
         return $this->cartRepository->itemsCount($user);

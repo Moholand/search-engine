@@ -1,6 +1,9 @@
 <template>
     <div class="cart">
-        <div class="cart-empty d-flex align-items-center flex-column">
+        <div v-if="cartItems">
+            کارت پر است!
+        </div>
+        <div class="cart-empty d-flex align-items-center flex-column" v-else>
             <img src="/images/logos/cart/empty-cart.svg" width="200" height="150"/>
             <p>سبد خرید شما خالی است!</p>
         </div>
@@ -9,6 +12,16 @@
 
 <script>
 export default {
+    data() {
+        return {
+            cartItems: null
+        }
+    },
+    created() {
+        axios.get(`/api/carts`)
+            .then(response => this.cartItems = response.data)
+            .catch((error) => console.log(error))
+    },
 }
 </script>
 

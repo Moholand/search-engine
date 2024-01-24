@@ -12,12 +12,14 @@ class CartController extends Controller
     public function __construct(private CartService $cartService)
     {}
 
+    /**
+     * Route:: GET:/api/carts
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
-        return response()->json(
-            ['cartItems' => $this->cartService->index(Auth::user())],
-            Constants::HTTP_STATUS_OK
-        );
+        return response()->json($this->cartService->index(Auth::user()), Constants::HTTP_STATUS_OK);
     }
 
     /**

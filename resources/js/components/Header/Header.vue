@@ -4,7 +4,7 @@
             <div class="d-flex justify-content-between">
                 <div class="d-flex flex-grow-1">
                     <a href="/" class="logo">
-                        <img src="/images/logos/logo.png" width="115" height="45"/>
+                        <img src="/images/logos/logo.png" width="115" height="45" alt="logo"/>
                     </a>
                     <div class="search-form ml-auto px-2">
                         <div class="input-group rounded">
@@ -50,10 +50,12 @@
                                 <li><a class="dropdown-item" @click="logout">خروج از حساب کاربری</a></li>
                             </ul>
                         </div>
-                        <div class="cart-icon pe-3 me-3">
-                            <i class="fa-solid fa-cart-plus"></i>
-                            <div class="cart-count" v-if="cartItemCount">{{ cartItemCount }}</div>
-                        </div>
+                        <router-link class="text-decoration-none" to="/checkout/cart">
+                            <div class="cart-icon pe-3 me-3">
+                                <i class="fa-solid fa-cart-plus"></i>
+                                <div class="cart-count" v-if="cartItemCount">{{ cartItemCount }}</div>
+                            </div>
+                        </router-link>
                     </div>
                     <button class="btn login-register" v-else>
                         <router-link class="text-decoration-none" to="/login">ورود|ثبت‌نام</router-link>

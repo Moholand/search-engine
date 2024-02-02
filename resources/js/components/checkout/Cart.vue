@@ -3,14 +3,15 @@
         <div class="cart-full d-flex" v-if="cartItems">
             <div class="items-wrapper w-75">
                 <div class="items-header">سبد خرید شما</div>
+                <div class="items-count">{{ cartItems.length }} کالا</div>
                 <div class="items-body">
-                    <div>
+                    <div class="items-card">
                         item detail
                     </div>
-                    <div>
+                    <div class="items-card">
                         item detail
                     </div>
-                    <div>
+                    <div class="items-card" style="border: none">
                         item detail
                     </div>
                 </div>
@@ -49,10 +50,12 @@ export default {
         margin-left: 20px;
         border: 1px solid #e0e0e2;
         border-radius: 10px;
-        padding: 12px 24px;
+        padding: 12px 0;
     }
     .items-header {
         font-weight: 500;
+        margin-bottom: 5px;
+        padding-right: 24px;
     }
     .pricing {
         border: 1px solid #e0e0e2;
@@ -68,5 +71,14 @@ export default {
         margin-top: 24px;
         font-size: 19px;
         font-weight: 500;
+    }
+    .items-count {
+        font-size: 14px;
+        color: #81858b;
+        padding-right: 24px;
+    }
+    .items-card {
+        border-bottom: 1px solid #e0e0e2;
+        padding: 30px 24px;
     }
 </style>

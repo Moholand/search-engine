@@ -5,15 +5,11 @@
                 <div class="items-header">سبد خرید شما</div>
                 <div class="items-count">{{ cartItems.length }} کالا</div>
                 <div class="items-body">
-                    <div class="items-card">
-                        item detail
-                    </div>
-                    <div class="items-card">
-                        item detail
-                    </div>
-                    <div class="items-card" style="border: none">
-                        item detail
-                    </div>
+                    <CartItem
+                        v-for="(cartItem, index) in cartItems"
+                        :key="cartItem.title"
+                        :cartItem="cartItem"
+                    />
                 </div>
             </div>
             <div class="pricing w-25">
@@ -28,7 +24,10 @@
 </template>
 
 <script>
+import CartItem from "./CartItem.vue";
+
 export default {
+    components: { CartItem },
     data() {
         return {
             cartItems: null
@@ -38,7 +37,7 @@ export default {
         axios.get(`/api/carts`)
             .then(response => this.cartItems = response.data)
             .catch((error) => console.log(error))
-    },
+    }
 }
 </script>
 
@@ -76,9 +75,5 @@ export default {
         font-size: 14px;
         color: #81858b;
         padding-right: 24px;
-    }
-    .items-card {
-        border-bottom: 1px solid #e0e0e2;
-        padding: 30px 24px;
     }
 </style>

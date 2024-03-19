@@ -4,7 +4,7 @@
             <img :src="cartItem.image" width="114" height="114" alt="cartItem.title"/>
             <div class="counter">
                 <span class="signs">+</span>
-                <span class="number">1</span>
+                <span class="number">{{ cartItem.pivot.count }}</span>
                 <span class="signs">-</span>
             </div>
         </div>

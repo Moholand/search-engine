@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\Checkout\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\User\Cart;
 use App\Services\Api\Checkout\Cart\CartProductService;
 use App\Tools\Constants;
-use Illuminate\Support\Facades\Auth;
 
 class CartProductController extends Controller
 {
@@ -17,10 +18,12 @@ class CartProductController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function changeCount()
+    public function changeCount(Cart $cart, Product $product)
     {
+        $this->cartProductService->changeCount(request()->type, $cart, $product->id);
+
         return response()->json(
-            $this->cartProductService->changeCount(Auth::user()),
+            ['response_message' => 'successful request'],
             Constants::HTTP_STATUS_OK
         );
     }

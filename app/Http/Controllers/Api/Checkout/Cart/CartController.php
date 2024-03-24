@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api\Checkout\Cart;
 
 use App\Http\Controllers\Controller;
-use App\Services\Api\User\Cart\CartService;
+use App\Services\Api\Checkout\Cart\CartService;
 use App\Tools\Constants;
 use Illuminate\Support\Facades\Auth;
 

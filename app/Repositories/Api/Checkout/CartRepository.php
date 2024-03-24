@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Api\User;
+namespace App\Repositories\Api\Checkout;
 
 use App\Models\User\Cart;
 use App\Models\User\User;

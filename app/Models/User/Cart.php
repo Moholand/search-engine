@@ -19,6 +19,8 @@ class Cart extends Model
 
     const STATUS_CREATED = 'created';
 
+    const TYPE_INCREASE = 'increase';
+
     protected $fillable = [
         'user_id',
         'status'

@@ -30,12 +30,11 @@
 <script>
 import ProductItem from "../products/ProductItem.vue";
 import Pagination from "../Tools/Pagination/Pagination.vue";
-import Loading from "../Tools/Loading/Loading.vue";
 import ListHeader from "./Sorting.vue";
 import Filter from "../filter/Filter.vue";
 
 export default {
-    components: { Filter, ListHeader, ProductItem, Pagination, Loading },
+    components: { Filter, ListHeader, ProductItem, Pagination },
     data() {
         return {
             products: null,

@@ -3,9 +3,14 @@
         <div class="item-image">
             <img :src="cartItem.image" width="114" height="114" alt="cartItem.title"/>
             <div class="counter">
-                <span class="signs">+</span>
-                <span class="number">{{ cartItem.pivot.count }}</span>
-                <span class="signs">-</span>
+                <span class="signs increase" @click="changeItemCount(increase)">+</span>
+                <div>
+                    <loading :is-loading="isLoading" v-if="isLoading" />
+                    <span class="number" v-else>
+                        {{ cartItem.pivot.count }}
+                    </span>
+                </div>
+                <span class="signs decrease" @click="changeItemCount(decrease)">-</span>
             </div>
         </div>
         <div class="item-description">
@@ -25,11 +30,28 @@ export default {
         cartItem: Object,
     },
     data() {
-        return {}
+        return {
+            increase: 'increase',
+            decrease: 'decrease',
+            isLoading: false
+        }
     },
     methods: {
         getDescription(description) {
             return description.length > 100 ? description.substring(0, 100) + '...' : description;
+        },
+        changeItemCount(type) {
+            this.isLoading = true;
+            axios.patch(`/api/carts/${this.cartItem.pivot.cart_id}/products/${this.cartItem.pivot.product_id}/changeCount`,
+                { type }
+                )
+                .then(response => {
+                    if (response.status == 200) {
+                        this.cartItem.pivot.count += (type === this.increase ? 1 : -1);
+                    }
+                })
+                .catch(() => console.error('Error adding item to cart'))
+                .finally(() => this.isLoading = false);
         }
     }
 }
@@ -59,6 +81,7 @@ export default {
         justify-content: space-between;
         align-items: center;
         color: #ef4056;
+        position: relative;
     }
     .counter .number {
         font-size: 16px;

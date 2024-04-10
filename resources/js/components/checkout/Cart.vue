@@ -1,12 +1,13 @@
 <template>
     <div class="cart">
+        <alert :alertData="alertData"></alert>
         <div class="cart-full d-flex" v-if="cartItems">
             <div class="items-wrapper w-75">
                 <div class="items-header">سبد خرید شما</div>
                 <div class="items-count">{{ cartItems.length }} کالا</div>
                 <div class="items-body">
                     <CartItem
-                        v-for="(cartItem, index) in cartItems"
+                        v-for="cartItem in cartItems"
                         :key="cartItem.title"
                         :cartItem="cartItem"
                     />
@@ -30,7 +31,11 @@ export default {
     components: { CartItem },
     data() {
         return {
-            cartItems: null
+            cartItems: null,
+            alertData: {
+                show: false,
+                message: null
+            }
         }
     },
     created() {

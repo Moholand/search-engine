@@ -10,6 +10,7 @@
                         v-for="cartItem in cartItems"
                         :key="cartItem.title"
                         :cartItem="cartItem"
+                        @showAlert="showAlert"
                     />
                 </div>
             </div>
@@ -34,7 +35,8 @@ export default {
             cartItems: null,
             alertData: {
                 show: false,
-                message: null
+                message: null,
+                type: null
             }
         }
     },
@@ -42,6 +44,15 @@ export default {
         axios.get(`/api/carts`)
             .then(response => this.cartItems = response.data)
             .catch((error) => console.log(error))
+    },
+    methods: {
+        showAlert(payload) {
+            this.alertData = {
+                show: true,
+                message: payload.message,
+                type: payload.type
+            }
+        }
     }
 }
 </script>

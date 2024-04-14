@@ -50,7 +50,10 @@ export default {
                         this.cartItem.pivot.count += (type === this.increase ? 1 : -1);
                     }
                 })
-                .catch(() => console.error('Error adding item to cart'))
+                .catch(() => this.$emit('showAlert', {
+                    message: 'خطایی اتفاق افتاده است!',
+                    type: 'error'
+                }))
                 .finally(() => this.isLoading = false);
         }
     }

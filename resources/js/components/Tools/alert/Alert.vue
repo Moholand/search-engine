@@ -1,6 +1,10 @@
 <template>
     <transition name="alert-box">
-        <div class="custom-alert d-flex align-items-center" v-if="alertData.show">
+        <div
+            class="custom-alert d-flex align-items-center"
+            :class="alertData.type"
+            v-if="alertData.show"
+        >
             <div class="d-flex justify-content-between align-items-center flex-grow-1">
                 <span>{{ alertData.message }}</span>
                 <span class="close-btn" @click="alertData.show = false">&times;</span>
@@ -18,7 +22,7 @@ export default {
         alertData: function(data) {
             setTimeout(function() {
                 data.show = false;
-            }, 5000);
+            }, 30000);
         }
     }
 }
@@ -38,6 +42,10 @@ export default {
     padding: 10px 25px 10px 10px;
 }
 
+.custom-alert.error {
+    background: #fff5e2;
+}
+
 .custom-alert:after {
     content: '';
     position: absolute;
@@ -46,6 +54,10 @@ export default {
     right: 0;
     border-radius: 0 5px 5px 0;
     background: #55efc4;
+}
+
+.custom-alert.error:after {
+    background: #e74c3c;
 }
 
 .close-btn {

@@ -3,14 +3,18 @@
         <div class="item-image">
             <img :src="cartItem.image" width="114" height="114" alt="cartItem.title"/>
             <div class="counter">
-                <span class="signs increase" @click="changeItemCount(increase)">+</span>
+                <span class="signs increase d-flex align-items-center" @click="changeItemCount(increase)">
+                    <i class="fa-solid fa-plus fa-xs"></i>
+                </span>
                 <div>
                     <loading :is-loading="isLoading" v-if="isLoading" />
                     <span class="number" v-else>
                         {{ cartItem.pivot.count }}
                     </span>
                 </div>
-                <span class="signs decrease" @click="changeItemCount(decrease)">-</span>
+                <span class="signs decrease d-flex align-items-center" @click="changeItemCount(decrease)">
+                    <i class="fa-solid fa-minus fa-xs"></i>
+                </span>
             </div>
         </div>
         <div class="item-description">
@@ -33,7 +37,8 @@ export default {
         return {
             increase: 'increase',
             decrease: 'decrease',
-            isLoading: false
+            isLoading: false,
+            errorMessage: 'خطایی اتفاق افتاده است!'
         }
     },
     methods: {
@@ -51,7 +56,7 @@ export default {
                     }
                 })
                 .catch(() => this.$emit('showAlert', {
-                    message: 'خطایی اتفاق افتاده است!',
+                    message: this.errorMessage,
                     type: 'error'
                 }))
                 .finally(() => this.isLoading = false);
@@ -85,6 +90,7 @@ export default {
         align-items: center;
         color: #ef4056;
         position: relative;
+        min-height: 41px;
     }
     .counter .number {
         font-size: 16px;

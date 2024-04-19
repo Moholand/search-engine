@@ -22,7 +22,7 @@ export default {
         alertData: function(data) {
             setTimeout(function() {
                 data.show = false;
-            }, 30000);
+            }, 3000);
         }
     }
 }
@@ -38,7 +38,6 @@ export default {
     width: 320px;
     height: 60px;
     border-radius: 5px;
-    font-weight: bold;
     padding: 10px 25px 10px 10px;
 }
 
@@ -70,7 +69,7 @@ export default {
     transition: 0.5s all ease;
 }
 
-.alert-box-enter, .alert-box-leave-to {
+.alert-box-enter-from, .alert-box-leave-to {
     transform: translateX(100px);
     opacity: 0;
 }

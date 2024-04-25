@@ -12,8 +12,12 @@
                         {{ cartItem.pivot.count }}
                     </span>
                 </div>
-                <span class="signs decrease d-flex align-items-center" @click="changeItemCount(decrease)">
-                    <i class="fa-solid fa-minus fa-xs"></i>
+                <span
+                    class="signs decrease d-flex align-items-center"
+                    @click="cartItem.pivot.count === 1 ? deleteItem() : changeItemCount(decrease)"
+                >
+                    <i class="fa-solid fa-trash fa-xs" v-if="cartItem.pivot.count === 1"></i>
+                    <i class="fa-solid fa-minus fa-xs" v-else></i>
                 </span>
             </div>
         </div>
@@ -23,6 +27,10 @@
             </div>
             <div class="item-details">
                 {{ getDescription(cartItem.description) }}
+            </div>
+            <div class="item-price mt-3">
+                <span class="price-number">{{ new Intl.NumberFormat().format(cartItem.price * cartItem.pivot.count) }}</span>
+                <span> تومان </span>
             </div>
         </div>
     </div>
@@ -60,6 +68,9 @@ export default {
                     type: 'error'
                 }))
                 .finally(() => this.isLoading = false);
+        },
+        deleteItem() {
+            console.log('delete');
         }
     }
 }
@@ -98,5 +109,9 @@ export default {
     .signs {
         font-size: 20px;
         cursor: pointer;
+    }
+    .item-price .price-number {
+        font-size: 17px;
+        font-weight: bold;
     }
 </style>

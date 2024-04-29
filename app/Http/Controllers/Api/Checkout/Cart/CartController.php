@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Checkout\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\Checkout\Cart\CartService;
-use App\Tools\Constants;
+use App\Tools\Constant;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -19,7 +19,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        return response()->json($this->cartService->index(Auth::user()), Constants::HTTP_STATUS_OK);
+        return response()->json($this->cartService->index(Auth::user()), Constant::HTTP_STATUS_OK);
     }
 
     /**
@@ -31,7 +31,7 @@ class CartController extends Controller
     {
         return response()->json(
             ['items_count' => $this->cartService->itemsCount(Auth::user())],
-            Constants::HTTP_STATUS_OK
+            Constant::HTTP_STATUS_OK
         );
     }
 }

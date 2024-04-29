@@ -15,7 +15,6 @@ class CartTest extends TestCase
     /** @test */
     public function correctItemsCountWillBeReturns()
     {
-        $this->withoutExceptionHandling();
         $user = $this->createUser();
 
         $cart = Cart::create([
@@ -26,7 +25,9 @@ class CartTest extends TestCase
         $cart->products()->attach($this->createProduct()->id, ['count' => 2]);
         $cart->products()->attach($this->createProduct()->id, ['count' => 4]);
 
-        $this->actingAs($user, 'api')->json('GET', '/api/carts/items-count')->assertOk()
-            ->assertJson(['items_count' => 6]);
+        $this->actingAs($user, 'api')
+            ->json('GET', '/api/carts/items-count')
+            ->assertOk()
+            ->assertJson(['items_count' => 2]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Tools;
 
-class Constants
+class Constant
 {
     public const HTTP_STATUS_OK = 200;
 }

@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Checkout\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Checkout\CartProductRequest;
+use App\Models\Checkout\Cart;
 use App\Models\Product;
-use App\Models\User\Cart;
 use App\Services\Api\Checkout\Cart\CartProductService;
 use App\Tools\Constant;
 use Illuminate\Http\JsonResponse;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Checkout;
 
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;

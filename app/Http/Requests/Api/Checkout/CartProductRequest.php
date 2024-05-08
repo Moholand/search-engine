@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api\Checkout;
 
-use App\Models\User\Cart;
+use App\Models\Checkout\Cart;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

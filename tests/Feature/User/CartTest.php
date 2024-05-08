@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\User;
 
-use App\Models\User\Cart;
+use App\Models\Checkout\Cart;
 use App\Traits\Test\ProductFactory;
 use App\Traits\Test\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;

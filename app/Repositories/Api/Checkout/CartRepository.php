@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Api\Checkout;
 
-use App\Models\User\Cart;
+use App\Models\Checkout\Cart;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Collection;
 

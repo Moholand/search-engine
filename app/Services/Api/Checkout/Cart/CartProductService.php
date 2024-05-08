@@ -2,7 +2,7 @@
 
 namespace App\Services\Api\Checkout\Cart;
 
-use App\Models\User\Cart;
+use App\Models\Checkout\Cart;
 use App\Repositories\Api\Checkout\CartProductRepository;
 
 class CartProductService

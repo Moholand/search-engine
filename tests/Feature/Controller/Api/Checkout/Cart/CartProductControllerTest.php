@@ -18,7 +18,7 @@ class CartProductControllerTest extends TestCase
         $user = User::factory()->create();
         $cart = Cart::factory()->create([
             'user_id' => $user->id,
-            'status'  => 'created'
+            'status'  => Cart::STATUS_CREATED
         ]);
 
         $productA = Product::factory()->create();

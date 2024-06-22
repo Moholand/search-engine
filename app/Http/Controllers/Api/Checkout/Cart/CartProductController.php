@@ -7,8 +7,8 @@ use App\Http\Requests\Api\Checkout\CartProductRequest;
 use App\Models\Checkout\Cart;
 use App\Models\Product;
 use App\Services\Api\Checkout\Cart\CartProductService;
-use App\Tools\Constant;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class CartProductController extends Controller
 {
@@ -25,11 +25,13 @@ class CartProductController extends Controller
      */
     public function changeCount(CartProductRequest $request, Cart $cart, Product $product)
     {
+        $this->authorize('update', [$cart, $product]);
+
         $this->cartProductService->changeCount($request->get('type'), $cart, $product->id);
 
         return response()->json(
             ['response_message' => 'successful request'],
-            Constant::HTTP_STATUS_OK
+            Response::HTTP_OK
         );
     }
 }

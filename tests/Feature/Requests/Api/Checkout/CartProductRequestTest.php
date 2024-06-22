@@ -6,6 +6,7 @@ use App\Models\Checkout\Cart;
 use App\Models\Product;
 use App\Models\User\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class CartProductRequestTest extends TestCase
@@ -29,12 +30,12 @@ class CartProductRequestTest extends TestCase
             ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $product->id . '/changeCount', [
                 'type' => ''
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->actingAs($user, 'api')
             ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $product->id . '/changeCount', [
                 'type' => 'random-text'
             ])
-            ->assertStatus(422);
+            ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

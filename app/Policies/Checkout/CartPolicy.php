@@ -13,6 +13,7 @@ class CartPolicy
 
     public function update(User $user, Cart $cart, Product $product): bool
     {
-        return true;
+        return $user->id == $cart->user_id
+            && in_array($product->id, $cart->products->pluck('id')->toArray());
     }
 }

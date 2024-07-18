@@ -4,7 +4,7 @@
         <div class="cart-full d-flex" v-if="cartItems">
             <div class="items-wrapper w-75">
                 <div class="items-header">سبد خرید شما</div>
-                <div class="items-count">{{ cartItems.length }} کالا</div>
+                <div class="items-count">{{ allItemsCount }} کالا</div>
                 <div class="items-body">
                     <CartItem
                         v-for="cartItem in cartItems"
@@ -53,7 +53,18 @@ export default {
                 type: payload.type
             }
         }
-    }
+    },
+    computed: {
+        allItemsCount() {
+            let count = 0;
+
+            this.cartItems.forEach(item => {
+                count += item.pivot.count;
+            });
+
+            return count;
+        },
+    },
 }
 </script>
 

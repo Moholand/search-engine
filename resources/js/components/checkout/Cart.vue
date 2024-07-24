@@ -4,7 +4,7 @@
         <div class="cart-full d-flex" v-if="cartItems">
             <div class="items-wrapper w-75">
                 <div class="items-header">سبد خرید شما</div>
-                <div class="items-count">{{ allItemsCount }} کالا</div>
+                <div class="items-count">{{ itemsCount }} کالا</div>
                 <div class="items-body">
                     <CartItem
                         v-for="cartItem in cartItems"
@@ -15,7 +15,16 @@
                 </div>
             </div>
             <div class="pricing w-25">
-                pricing
+                <div class="price-info d-flex justify-content-between">
+                    <div class="price-label">
+                        <span class="px-1">قیمت کالاها</span>
+                        <span>({{ itemsCount }})</span>
+                    </div>
+                    <div class="price-label">
+                        <span class="px-1">{{ new Intl.NumberFormat().format(totalPrice) }}</span>
+                        <span>تومان</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="cart-empty d-flex align-items-center flex-column" v-else>
@@ -55,14 +64,11 @@ export default {
         }
     },
     computed: {
-        allItemsCount() {
-            let count = 0;
-
-            this.cartItems.forEach(item => {
-                count += item.pivot.count;
-            });
-
-            return count;
+        itemsCount() {
+            return this.cartItems.reduce((count, item) => count + item.pivot.count, 0);
+        },
+        totalPrice() {
+            return this.cartItems.reduce((price, item) => price + (item.pivot.count * item.price), 0);
         },
     },
 }
@@ -102,5 +108,9 @@ export default {
         font-size: 14px;
         color: #81858b;
         padding-right: 24px;
+    }
+    .price-info {
+        font-size: 12px;
+        color: #62666d;
     }
 </style>

@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="pricing w-25">
-                <div class="price-info d-flex justify-content-between">
+                <div class="price-info d-flex justify-content-between pt-3">
                     <div class="price-label">
                         <span class="px-1">قیمت کالاها</span>
                         <span>({{ itemsCount }})</span>
@@ -25,6 +25,7 @@
                         <span>تومان</span>
                     </div>
                 </div>
+                <a class="continue-checkout">تایید و تکمیل سفارش</a>
             </div>
         </div>
         <div class="cart-empty d-flex align-items-center flex-column" v-else>
@@ -93,6 +94,7 @@ export default {
         border: 1px solid #e0e0e2;
         border-radius: 10px;
         padding: 12px 20px;
+        height: max-content;
     }
     .cart-empty {
         border: 1px solid #e0e0e2;
@@ -112,5 +114,20 @@ export default {
     .price-info {
         font-size: 12px;
         color: #62666d;
+    }
+    .continue-checkout {
+        display: flex;
+        justify-content: center;
+        background-color: #ef4056;
+        color: #ffffff;
+        padding: 12px 16px;
+        margin: 16px 0;
+        text-decoration: none;
+        font-size: 14px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .continue-checkout:hover {
+        color: #ffffff;
     }
 </style>

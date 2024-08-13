@@ -29,7 +29,7 @@ Route::resource('/brands', \App\Http\Controllers\BrandController::class)->only('
 
 // api/carts
 Route::prefix('carts')->middleware('auth:api')->group(function () {
-    Route::get('', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'index']);
+    Route::apiResource('', \App\Http\Controllers\Api\Checkout\Cart\CartController::class)->only(['index', 'store']);
     Route::get('items-count', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'itemsCount']);
 
     // api/carts/{cart}

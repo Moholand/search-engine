@@ -24,7 +24,7 @@
                             <span class="px-2">تومان</span>
                         </div>
                     </div>
-                    <div class="order-btn my-5">
+                    <div class="order-btn my-5" @click="addToCart">
                         افزودن به سبد
                     </div>
                 </div>
@@ -67,6 +67,13 @@ export default {
                 console.log(error)
             } finally {
                 this.isLoading = false;
+            }
+        },
+        async addToCart() {
+            try {
+                await axios.post('/api/carts', {id: this.product.id})
+            } catch (error) {
+                console.log(error)
             }
         }
     }

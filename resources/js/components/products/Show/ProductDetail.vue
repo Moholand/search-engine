@@ -71,9 +71,9 @@ export default {
         },
         async addToCart() {
             try {
-                await axios.post('/api/carts', {id: this.product.id})
+                await axios.post('/api/carts/products/' + this.product.id);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }
     }

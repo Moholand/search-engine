@@ -23,16 +23,6 @@ class CartController extends Controller
     }
 
     /**
-     * Route:: POST:/api/carts
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store()
-    {
-        dd(request()->all());
-    }
-
-    /**
      * Route:: GET:/api/carts/items-count
      *
      * @return \Illuminate\Http\JsonResponse

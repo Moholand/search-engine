@@ -16,6 +16,21 @@ class CartProductController extends Controller
     {}
 
     /**
+     * Route:: POST:/api/carts/products/{product}
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addToCart(Product $product)
+    {
+        $this->cartProductService->addToCart($product);
+
+        return response()->json(
+            ['response_message' => 'successful request'],
+            Response::HTTP_CREATED
+        );
+    }
+
+    /**
      * Route:: PATCH:/api/carts/{cart}/products/{product}/change-count
      *
      * @param CartProductRequest $request

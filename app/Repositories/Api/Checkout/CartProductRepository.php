@@ -19,7 +19,9 @@ class CartProductRepository
 
     public function addProductToCart(Cart $cart, int $productId): void
     {
-        $cart->products()->attach($productId, ['count' => 1]);
+        if (!$cart->products()->where('product_id', $productId)->exists()) {
+            $cart->products()->attach($productId, ['count' => 1]);
+        }
     }
 
     public function changeCount(string $type, Cart $cart, int $productId): void

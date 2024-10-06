@@ -25,7 +25,7 @@ class CartProductController extends Controller
         $this->cartProductService->addToCart($product);
 
         return response()->json(
-            ['response_message' => 'successful request'],
+            ['response_message' => __('messages.added_successfully')],
             Response::HTTP_CREATED
         );
     }

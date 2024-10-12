@@ -1,5 +1,6 @@
 <template>
     <section class="product-detail-wrapper">
+        <alert :alertData="alertData"></alert>
         <div class="my-breadcrumb">
             محصولات  /  موبایل  /  گوشی موبایل
         </div>
@@ -51,7 +52,13 @@ export default {
                 { logo: 'cash-on-delivery.svg', text: 'امکان پرداخت در محل' },
                 { logo: 'days-return.svg', text: 'هفت روز ضمانت بازگشت کالا' },
                 { logo: 'original-products.svg', text: 'ضمانت اصل بودن کالا' },
-            ]
+            ],
+            alertData: {
+                show: false,
+                message: null,
+                type: null
+            },
+            errorMessage: 'خطا رخ داده است'
         }
     },
     created() {
@@ -64,16 +71,24 @@ export default {
             try {
                 this.product = (await axios.get('/api/products/' + this.$route.params.id)).data
             } catch (error) {
-                console.log(error)
+                this.showAlert(this.errorMessage, 'error');
             } finally {
                 this.isLoading = false;
             }
         },
         async addToCart() {
             try {
-                await axios.post('/api/carts/products/' + this.product.id);
+                let response = (await axios.post('/api/carts/products/' + this.product.id)).data;
+                this.showAlert(response.response_message, 'success');
             } catch (error) {
-                console.log(error);
+                this.showAlert(this.errorMessage, 'error');
+            }
+        },
+        showAlert(message, type) {
+            this.alertData = {
+                show: true,
+                message: message,
+                type: type
             }
         }
     }

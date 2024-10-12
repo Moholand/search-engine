@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'added_successfully' => 'Added Successfully',
+    'added_successfully' => 'به سبد خرید اضافه شد',
 ];

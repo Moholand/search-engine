@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import alertMixin from '@/helpers/mixins/alertMixin';
+
 export default {
     data() {
         return {
@@ -53,14 +55,10 @@ export default {
                 { logo: 'days-return.svg', text: 'هفت روز ضمانت بازگشت کالا' },
                 { logo: 'original-products.svg', text: 'ضمانت اصل بودن کالا' },
             ],
-            alertData: {
-                show: false,
-                message: null,
-                type: null
-            },
             errorMessage: 'خطا رخ داده است'
         }
     },
+    mixins: [alertMixin],
     created() {
         this.fetchProducts();
     },
@@ -82,13 +80,6 @@ export default {
                 this.showAlert(response.response_message, 'success');
             } catch (error) {
                 this.showAlert(this.errorMessage, 'error');
-            }
-        },
-        showAlert(message, type) {
-            this.alertData = {
-                show: true,
-                message: message,
-                type: type
             }
         }
     }

@@ -77,6 +77,7 @@ export default {
         async addToCart() {
             try {
                 let response = (await axios.post('/api/carts/products/' + this.product.id)).data;
+                this.emitter.emit('cart-count-update', { type: 'increase' });
                 this.showAlert(response.response_message, 'success');
             } catch (error) {
                 this.showAlert(this.errorMessage, 'error');

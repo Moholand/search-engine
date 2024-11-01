@@ -67,63 +67,70 @@
 </template>
 
 <script>
-    import Auth from '../../helpers/auth';
-    export default {
-        data() {
-            return {
-                search: null,
-                products: null,
-                recommendations: null,
-                loggedUser: Auth.user,
-                cartItemCount: 0
-            }
-        },
-        created() {
-            axios.get(`/api/carts/items-count`)
-                .then(response => this.cartItemCount = response.data.items_count)
-                .catch(() => this.cartItemCount = 0)
-        },
-        methods: {
-            async searchStart(event) {
-                if(event.keyCode === 13 && this.search) { // Client pressed enter key
-                    try {
-                        this.recommendations = null;
-                        this.$router.push({ name: 'Search', query: { title: this.search } });
-                    } catch (error) {
-                        console.log(error);
-                    }
-                } else if (this.search && this.search.length >= 3) {
-                    try {
-                        this.recommendations = (await axios.get(`/api/products/recommendations?title=${this.search}`)).data;
-                    } catch (error) {
-                        console.log(error);
-                    }
-                } else {
-                    this.recommendations = null;
-                }
-            },
-            async recommendationSelected(event) {
-                this.search = event.target.innerHTML;
-                this.recommendations = null;
+import Auth from '../../helpers/auth';
 
+export default {
+    data() {
+        return {
+            search: null,
+            products: null,
+            recommendations: null,
+            loggedUser: Auth.user,
+            cartItemCount: 0
+        }
+    },
+    created() {
+        axios.get(`/api/carts/items-count`)
+            .then(response => this.cartItemCount = response.data.items_count)
+            .catch(() => this.cartItemCount = 0)
+
+        this.emitter.on('cart-count-update', this.updateCartItemsCount);
+    },
+    methods: {
+        async searchStart(event) {
+            if(event.keyCode === 13 && this.search) { // Client pressed enter key
                 try {
-                    this.products = (await axios.get(`/api/products/search?title=${this.search}`)).data;
-                    this.$emit('onSearch', this.products)
+                    this.recommendations = null;
+                    this.$router.push({ name: 'Search', query: { title: this.search } });
                 } catch (error) {
                     console.log(error);
                 }
-            },
-            async logout() {
+            } else if (this.search && this.search.length >= 3) {
                 try {
-                    await axios.post('/api/logout');
-                    Auth.logout();
-                    this.loggedUser = null;
+                    this.recommendations = (await axios.get(`/api/products/recommendations?title=${this.search}`)).data;
                 } catch (error) {
                     console.log(error);
                 }
+            } else {
+                this.recommendations = null;
             }
+        },
+        async recommendationSelected(event) {
+            this.search = event.target.innerHTML;
+            this.recommendations = null;
+
+            try {
+                this.products = (await axios.get(`/api/products/search?title=${this.search}`)).data;
+                this.$emit('onSearch', this.products)
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async logout() {
+            try {
+                await axios.post('/api/logout');
+                Auth.logout();
+                this.loggedUser = null;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        updateCartItemsCount(payload) {
+            let operator = (payload.type === 'increase') ? 1 : -1;
+            this.cartItemCount += operator;
         }
     }
+}
 </script>
 
 <style>

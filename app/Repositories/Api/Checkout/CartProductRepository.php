@@ -10,7 +10,7 @@ class CartProductRepository
 {
     public function getOrCreateCart(User $user): Cart
     {
-        if ($cart = $user->carts()->where('status', Cart::STATUS_CREATED)->first()) {
+        if ($cart = $this->getCurrentCart($user)) {
             return $cart;
         }
 
@@ -29,5 +29,18 @@ class CartProductRepository
         $rawExpression = 'count ' . ($type === Cart::TYPE_INCREASE ? '+' : '-') . ' 1';
 
         $cart->products()->updateExistingPivot($productId, ['count' => DB::raw($rawExpression)]);
+    }
+
+    public function getCountOfProductInUserCart(User $user, int $productId): int
+    {
+        if ($cart = $this->getCurrentCart($user)) {
+            return $cart->products()->where('product_id', $productId)->value('count');
+        }
+        return 0;
+    }
+
+    private function getCurrentCart(User $user): ?Cart
+    {
+        return $user->carts()->where('status', Cart::STATUS_CREATED)->first();
     }
 }

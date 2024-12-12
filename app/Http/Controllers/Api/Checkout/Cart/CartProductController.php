@@ -31,15 +31,15 @@ class CartProductController extends Controller
     }
 
     /**
-     * Route:: PATCH:/api/carts/{cart}/products/{product}/change-count
+     * Route:: PATCH:/api/carts/products/{product}/change-count
      *
      * @param CartProductRequest $request
-     * @param Cart $cart
      * @param Product $product
      * @return JsonResponse
      */
-    public function changeCount(CartProductRequest $request, Cart $cart, Product $product)
+    public function changeCount(CartProductRequest $request, Product $product)
     {
+        $cart = $request->user('api')->carts()->where('status', Cart::STATUS_CREATED)->firstOrFail();
         $this->authorize('update', [$cart, $product]);
 
         $this->cartProductService->changeCount($request->get('type'), $cart, $product->id);

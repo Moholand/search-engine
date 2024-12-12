@@ -33,9 +33,5 @@ Route::prefix('carts')->middleware('auth:api')->group(function () {
     Route::get('items-count', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'itemsCount']);
 
     Route::post('products/{product}', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'addToCart']);
-
-    // api/carts/{cart}
-    Route::prefix('{cart}')->group(function () {
-        Route::patch('products/{product}/changeCount', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'changeCount']);
-    });
+    Route::patch('products/{product}/changeCount', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'changeCount']);
 });

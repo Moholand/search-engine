@@ -27,13 +27,13 @@ class CartProductRequestTest extends TestCase
         $cart->products()->attach($product, ['count' => 2]);
 
         $this->actingAs($user, 'api')
-            ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $product->id . '/changeCount', [
+            ->json('PATCH', '/api/carts/products/' . $product->id . '/changeCount', [
                 'type' => ''
             ])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $this->actingAs($user, 'api')
-            ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $product->id . '/changeCount', [
+            ->json('PATCH', '/api/carts/products/' . $product->id . '/changeCount', [
                 'type' => 'random-text'
             ])
             ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);

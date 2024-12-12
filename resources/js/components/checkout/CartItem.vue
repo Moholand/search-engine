@@ -55,7 +55,7 @@ export default {
         },
         changeItemCount(type) {
             this.isLoading = true;
-            axios.patch(`/api/carts/${this.cartItem.pivot.cart_id}/products/${this.cartItem.pivot.product_id}/changeCount`,
+            axios.patch(`/api/carts/products/${this.cartItem.pivot.product_id}/changeCount`,
                 { type }
                 )
                 .then(response => {

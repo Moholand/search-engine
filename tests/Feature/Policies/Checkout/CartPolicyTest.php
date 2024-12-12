@@ -18,23 +18,28 @@ class CartPolicyTest extends TestCase
         $user = User::factory()->create();
         $anotherUser = User::factory()->create();
 
-        $cart = Cart::factory()->create([
+        $userCart = Cart::factory()->create([
             'user_id' => $user->id,
+            'status'  => Cart::STATUS_CREATED
+        ]);
+
+        $anotherUserCart = Cart::factory()->create([
+            'user_id' => $anotherUser->id,
             'status'  => Cart::STATUS_CREATED
         ]);
 
         $products = Product::factory(2)->create();
 
-        $cart->products()->attach($products[0], ['count' => 2]);
+        $userCart->products()->attach($products[0], ['count' => 2]);
 
         $this->actingAs($anotherUser, 'api')
-            ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $products[0]->id . '/changeCount', [
+            ->json('PATCH', '/api/carts/products/' . $products[0]->id . '/changeCount', [
                 'type' => Cart::TYPE_INCREASE
             ])
             ->assertForbidden();
 
         $this->actingAs($user, 'api')
-            ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $products[1]->id . '/changeCount', [
+            ->json('PATCH', '/api/carts/products/' . $products[1]->id . '/changeCount', [
                 'type' => Cart::TYPE_INCREASE
             ])
             ->assertForbidden();

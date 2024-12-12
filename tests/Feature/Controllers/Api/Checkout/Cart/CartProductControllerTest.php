@@ -69,7 +69,7 @@ class CartProductControllerTest extends TestCase
         $cart->products()->attach($products[1], ['count' => 3]);
 
         $this->actingAs($user, 'api')
-            ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $products[1]->id . '/changeCount', [
+            ->json('PATCH', '/api/carts/products/' . $products[1]->id . '/changeCount', [
                 'type' => Cart::TYPE_INCREASE
             ])
             ->assertOk();
@@ -78,7 +78,7 @@ class CartProductControllerTest extends TestCase
         $this->assertEquals(4, $cart->products()->where('product_id', $products[1]->id)->value('count'));
 
         $this->actingAs($user, 'api')
-            ->json('PATCH', '/api/carts/' . $cart->id . '/products/' . $products[0]->id . '/changeCount', [
+            ->json('PATCH', '/api/carts/products/' . $products[0]->id . '/changeCount', [
                 'type' => Cart::TYPE_DECREASE
             ])
             ->assertOk();

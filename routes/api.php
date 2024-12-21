@@ -32,6 +32,6 @@ Route::prefix('carts')->middleware('auth:api')->group(function () {
     Route::get('', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'index']);
     Route::get('items-count', [\App\Http\Controllers\Api\Checkout\Cart\CartController::class, 'itemsCount']);
 
-    Route::post('products/{product}', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'addToCart']);
+    Route::apiResource('products', \App\Http\Controllers\Api\Checkout\Cart\CartProductController::class)->only(['store', 'destroy']);
     Route::patch('products/{product}/changeCount', [\App\Http\Controllers\Api\Checkout\Cart\CartProductController::class, 'changeCount']);
 });

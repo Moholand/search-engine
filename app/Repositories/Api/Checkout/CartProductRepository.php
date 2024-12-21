@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CartProductRepository
 {
-    public function getOrCreateCart(User $user): Cart
+    public function firstOrCreateCart(User $user): Cart
     {
         if ($cart = $this->getCurrentCart($user)) {
             return $cart;
@@ -39,7 +39,12 @@ class CartProductRepository
         return 0;
     }
 
-    private function getCurrentCart(User $user): ?Cart
+    public function removeProductFromCart(Cart $cart, int $productId): void
+    {
+        $cart->products()->detach($productId);
+    }
+
+    public function getCurrentCart(User $user): ?Cart
     {
         return $user->carts()->where('status', Cart::STATUS_CREATED)->first();
     }

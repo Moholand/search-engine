@@ -18,15 +18,30 @@ class CartProductController extends Controller
     /**
      * Route:: POST:/api/carts/products/{product}
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function addToCart(Product $product)
+    public function store(Product $product): JsonResponse
     {
-        $this->cartProductService->addToCart($product);
+        $this->cartProductService->store($product);
 
         return response()->json(
             ['response_message' => __('messages.added_successfully')],
             Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * Route:: DELETE:/api/carts/products/{product}
+     *
+     * @return JsonResponse
+     */
+    public function destroy(Product $product): JsonResponse
+    {
+        $this->cartProductService->destroy($product);
+
+        return response()->json(
+            ['response_message' => __('messages.removed_successfully')],
+            Response::HTTP_OK
         );
     }
 

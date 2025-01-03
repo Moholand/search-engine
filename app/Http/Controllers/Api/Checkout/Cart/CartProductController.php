@@ -20,9 +20,9 @@ class CartProductController extends Controller
      *
      * @return JsonResponse
      */
-    public function store(Product $product): JsonResponse
+    public function addToCart(Product $product): JsonResponse
     {
-        $this->cartProductService->store($product);
+        $this->cartProductService->addToCart($product);
 
         return response()->json(
             ['response_message' => __('messages.added_successfully')],
@@ -35,9 +35,9 @@ class CartProductController extends Controller
      *
      * @return JsonResponse
      */
-    public function destroy(Product $product): JsonResponse
+    public function deleteFromCart(Product $product): JsonResponse
     {
-        $this->cartProductService->destroy($product);
+        $this->cartProductService->deleteFromCart($product);
 
         return response()->json(
             ['response_message' => __('messages.removed_successfully')],

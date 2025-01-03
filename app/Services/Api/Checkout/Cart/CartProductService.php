@@ -12,14 +12,14 @@ class CartProductService
     public function __construct(private CartProductRepository $cartProductRepository)
     {}
 
-    public function store(Product $product): void
+    public function addToCart(Product $product): void
     {
         $cart = $this->cartProductRepository->firstOrCreateCart(request()->user('api'));
         
         $this->cartProductRepository->addProductToCart($cart, $product->id);
     }
 
-    public function destroy(Product $product): void
+    public function deleteFromCart(Product $product): void
     {
         $cart = $this->cartProductRepository->getCurrentCart(request()->user('api'));
 

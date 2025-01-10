@@ -11,6 +11,7 @@
                         :key="cartItem.title"
                         :cartItem="cartItem"
                         @showAlert="showAlert"
+                        @deleteItem="deleteItem"
                     />
                 </div>
             </div>
@@ -56,6 +57,9 @@ export default {
                 message: payload.message,
                 type: payload.type
             }
+        },
+        deleteItem(id) {
+            this.cartItems = this.cartItems.filter(item => item.id !== id);
         }
     },
     computed: {

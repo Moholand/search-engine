@@ -63,14 +63,25 @@ export default {
                         this.cartItem.pivot.count += (type === this.increase ? 1 : -1);
                     }
                 })
-                .catch(() => this.$emit('showAlert', {
-                    message: this.errorMessage,
-                    type: 'error'
-                }))
+                .catch(() => this.showError())
                 .finally(() => this.isLoading = false);
         },
         deleteItem() {
-            console.log('delete');
+            this.isLoading = true;
+            axios.delete(`/api/carts/products/${this.cartItem.pivot.product_id}`)
+                .then(response => {
+                    if (response.status == 200) {
+                        this.$emit('deleteItem', this.cartItem.pivot.product_id);
+                    }
+                })
+                .catch(() => this.showError())
+                .finally(() => this.isLoading = false);
+        },
+        showError() {
+            this.$emit('showAlert', {
+                message: this.errorMessage,
+                type: 'error'
+            })
         }
     }
 }

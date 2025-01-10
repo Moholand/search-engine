@@ -34,7 +34,7 @@ class CartProductRepository
     public function getCountOfProductInUserCart(User $user, int $productId): int
     {
         if ($cart = $this->getCurrentCart($user)) {
-            return $cart->products()->where('product_id', $productId)->value('count');
+            return $cart->products()->where('product_id', $productId)->value('count') ?? 0;
         }
         return 0;
     }

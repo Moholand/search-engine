@@ -32,32 +32,22 @@
 <script>
 import CartItem from "./CartItem.vue";
 import ContinueCheckout from "./ContinueCheckout.vue";
+import alertMixin from '@/helpers/mixins/alertMixin';
 
 export default {
     components: { CartItem, ContinueCheckout },
     data() {
         return {
             cartItems: null,
-            alertData: {
-                show: false,
-                message: null,
-                type: null
-            }
         }
     },
+    mixins: [alertMixin],
     created() {
         axios.get(`/api/carts`)
             .then(response => this.cartItems = response.data)
             .catch((error) => console.log(error))
     },
     methods: {
-        showAlert(payload) {
-            this.alertData = {
-                show: true,
-                message: payload.message,
-                type: payload.type
-            }
-        },
         deleteItem(id) {
             this.cartItems = this.cartItems.filter(item => item.id !== id);
         }

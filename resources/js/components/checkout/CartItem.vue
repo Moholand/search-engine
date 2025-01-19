@@ -72,16 +72,14 @@ export default {
                 .then(response => {
                     if (response.status == 200) {
                         this.$emit('deleteItem', this.cartItem.pivot.product_id);
+                        this.$emit('showAlert', response.data.response_message, 'success');
                     }
                 })
                 .catch(() => this.showError())
                 .finally(() => this.isLoading = false);
         },
         showError() {
-            this.$emit('showAlert', {
-                message: this.errorMessage,
-                type: 'error'
-            })
+            this.$emit('showAlert', this.errorMessage, 'error');
         }
     }
 }

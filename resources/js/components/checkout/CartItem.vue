@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { HTTP_STATUS_CODES } from '@/helpers/constants/httpStatusCodes';
+
 export default {
     props: {
         cartItem: Object,
@@ -55,11 +57,9 @@ export default {
         },
         changeItemCount(type) {
             this.isLoading = true;
-            axios.patch(`/api/carts/products/${this.cartItem.pivot.product_id}/changeCount`,
-                { type }
-                )
+            axios.patch(`/api/carts/products/${this.cartItem.pivot.product_id}/changeCount`, { type })
                 .then(response => {
-                    if (response.status == 200) {
+                    if (response.status == HTTP_STATUS_CODES.OK) {
                         this.cartItem.pivot.count += (type === this.increase ? 1 : -1);
                     }
                 })
@@ -70,7 +70,7 @@ export default {
             this.isLoading = true;
             axios.delete(`/api/carts/products/${this.cartItem.pivot.product_id}`)
                 .then(response => {
-                    if (response.status == 200) {
+                    if (response.status == HTTP_STATUS_CODES.OK) {
                         this.$emit('deleteItem', this.cartItem.pivot.product_id);
                         this.$emit('showAlert', response.data.response_message, 'success');
                     }

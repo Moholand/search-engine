@@ -123,8 +123,9 @@ export default {
             axios.delete(`/api/carts/products/${this.product.id}`)
                 .then(response => {
                     if (response.status == HTTP_STATUS_CODES.OK) {
-                        // this.$emit('deleteItem', this.cartItem.pivot.product_id);
-                        // this.$emit('showAlert', response.data.response_message, 'success');
+                        this.countInCart = 0;
+                        this.emitter.emit('cart-count-update', { type: 'decrease' });
+                        this.showAlert(response.data.response_message, 'success');
                     }
                 })
                 .catch(() => this.showError())

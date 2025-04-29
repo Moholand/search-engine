@@ -16,8 +16,10 @@ class CartService
         return $this->cartRepository->index($user);
     }
 
-    public function itemsCount(User $user): int
+    public function itemsCount(User $user): array
     {
-        return $this->cartRepository->itemsCount($user);
+        return [
+            'items_count' => $this->cartRepository->itemsCount($user->id)
+        ];
     }
 }

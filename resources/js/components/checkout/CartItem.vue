@@ -61,6 +61,7 @@ export default {
                 .then(response => {
                     if (response.status == HTTP_STATUS_CODES.OK) {
                         this.cartItem.pivot.count += (type === this.increase ? 1 : -1);
+                        this.emitter.emit('cart-count-update', { type });
                     }
                 })
                 .catch(() => this.showError())
@@ -72,6 +73,7 @@ export default {
                 .then(response => {
                     if (response.status == HTTP_STATUS_CODES.OK) {
                         this.$emit('deleteItem', this.cartItem.pivot.product_id);
+                        this.emitter.emit('cart-count-update', { type: 'decrease' });
                         this.$emit('showAlert', response.data.response_message, 'success');
                     }
                 })

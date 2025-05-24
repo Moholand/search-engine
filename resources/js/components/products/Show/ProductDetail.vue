@@ -113,6 +113,7 @@ export default {
                 .then(response => {
                     if (response.status == HTTP_STATUS_CODES.OK) {
                         this.countInCart += (type === this.increase ? 1 : -1);
+                        this.emitter.emit('cart-count-update', { type });
                     }
                 })
                 .catch(() => this.showError())

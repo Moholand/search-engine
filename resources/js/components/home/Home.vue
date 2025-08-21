@@ -9,11 +9,15 @@
                 </router-link>
             </div>
         </div>
+        <BannerSlider />
     </div>
 </template>
 
 <script>
+import BannerSlider from "./BannerSlider.vue";
+
 export default {
+    components: { BannerSlider },
     data() {
         return {
             categories: null
